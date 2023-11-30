@@ -16,3 +16,11 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: "alfred-telegram"
+          secrets: |
+            GIPHY_API_KEY
+            TELEGRAM_BOT_TOKEN
+            GROUP_CHAT_ID
+        env:
+          GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
