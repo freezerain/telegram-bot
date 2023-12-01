@@ -1,0 +1,6 @@
+export const postivePollOption = "Да! 💪"
+export const negativePollOption = "Нет. 😢"
+export const botGreetingMsg = "Приветик! 👋"
+export const tiktokMsg = "Делаю вид что шлю тиктоки! 👋"
+export const fallbackMsg = "🐀"
+export const pollBodyText = "Господа, наступило время ежедневного голосования! 📊 \nГотовы ли вы продолжить наше ✨приключение✨?"

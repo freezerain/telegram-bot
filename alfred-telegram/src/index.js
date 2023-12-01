@@ -8,8 +8,14 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import { log, loge } from './Utility.js'
+import { handleEventRequest } from './fetchHandler.js'
+
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
+		//return new Response('Hello World!');
+		log('Fetch request received', request)
+		return handleEventRequest(request, env)
 	},
 };
+
