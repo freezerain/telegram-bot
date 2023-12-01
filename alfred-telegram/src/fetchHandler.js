@@ -3,7 +3,7 @@ import * as lists from './keywordList.js'
 import {botGreetingMsg} from './botMessages.js'
 const isSendFallbackMsg = false
 
-async function handleEventRequest(request, env) {
+export async function handleEventRequest(request, env) {
   log('Handling event request', request)
   try {
      if (request.method === 'POST') {
