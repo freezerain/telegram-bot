@@ -1,6 +1,7 @@
 import { log, loge } from './Utility.js'
-import * as lists from './keywordList.js'
+import * as keywords from './keywordList.js'
 import {botGreetingMsg} from './botMessages.js'
+import * as telegramApi from './telegramApi.js'
 const isSendFallbackMsg = false
 
 export async function handleEventRequest(request, env) {
@@ -9,7 +10,7 @@ export async function handleEventRequest(request, env) {
      if (request.method === 'POST') {
        log('extracting payload from request')
        const payload = await request.json()
-       processPayload(payload, env)
+       await processPayload(payload, env)
      }else{
        loge('Request method should be POST', request.method)
        return new Response('Request should be POST')
@@ -36,7 +37,7 @@ async function processPayload(payload, env) {
 }
 
 async function handleMessageRequest(payload, env) {
-  log('Handling message request' + payload);
+  log('Handling message request', payload);
   const chatId = payload.message.chat.id;
   const text = payload.message.text.trim().toLowerCase();
   //If first symbol is slash -> remove it
@@ -47,31 +48,31 @@ async function handleMessageRequest(payload, env) {
   // Create a map of triggers to routines
   const routines = {
     greetings: {
-      keywords: greetingList,
-      action: async () => await fetch(sendMessageURL(chatId, botGreetingMsg, false, env)),
+      keywords: keywords.greetingList,
+      action: async () => await fetch(telegramApi.sendMessageURL(chatId, botGreetingMsg, false, env)),
     },
     tiktok: {
-      keywords: tiktokList,
+      keywords: keywords.tiktokList,
       action: async () => await fetch(sendMessageURL(chatId, tiktokMsg, false)),
     },
     dogo: {
-      keywords: dogList,
+      keywords: keywords.dogList,
       action: async () => await sendDogPhotoURL(chatId),
     },
     divinity: {
-      keywords: divinityList,
+      keywords: keywords.divinityList,
       action: async () => await fetch(createDivinityPoll(chatId)),
     },
     giphy: {
-      keywords: morningList,
+      keywords: keywords.morningList,
       action: async () => await sendGiphyMsg(chatId),
     },
     epicGames: {
-      keywords: epicGamesList,
+      keywords: keywords.epicGamesList,
       action: async () => await sendFreeEpicGamesList(chatId, true),
     },
     multiDog: {
-      keywords: multiDogList,
+      keywords: keywords.multiDogList,
       action: async () => await sendMultiDog(chatId),
     },
     fallback: {

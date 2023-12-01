@@ -1,7 +1,9 @@
 
 
 export const sendMessageURL = (chatId, text, notify, env) => {
-	return `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${chatId}&text=${text}&disable_notification=${!notify}`
+	const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${chatId}&text=${text}&disable_notification=${!notify}`
+	console.log("sending message using url: " + url)
+	return url
 }
 
 

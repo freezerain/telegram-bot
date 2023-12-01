@@ -15,7 +15,7 @@ export default {
 	async fetch(request, env, ctx) {
 		//return new Response('Hello World!');
 		log('Fetch request received', request)
-		return handleEventRequest(request, env)
+		return await handleEventRequest(request, env)
 	},
 };
 
