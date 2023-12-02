@@ -1,4 +1,8 @@
 export const greetingList = ['привет', 'hello', 'ghbdtn', 'hi']
+export const aiList = ['ab', 'ai', 'аи', 'фш']
+export const stableDiffusion = ['sd', 'сд', 'ыв', 'картинка', 'image', 'photo', 'фото', 'paint', 'нарисуй']
+export const chuckNorrisList = ['xfr', 'chuck', 'norris', 'chuck norris', 'чак', 'норрис', 'чак норрис', 'chuck noris', 'noris']
+export const jokeList = ['joke', 'ощлу']
 export const tiktokList = ['тик', 'ток', 'тикток', 'тиктоки', 'tik', 'tok', 'tiktok', 'tiktoks']
 export const dogList = ['dog', 'dogo', 'пёс', 'пес', 'собака', 'собачка', 'дог','дого']
 export const divinityList = ['div', 'divinity', 'go', 'го', 'uj', 'див', 'дивинити','опрос']
