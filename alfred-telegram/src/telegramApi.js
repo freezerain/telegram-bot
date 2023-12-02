@@ -1,8 +1,9 @@
-
+import { log, loge } from './Utility.js'
 
 export const sendMessageURL = (chatId, text, notify, env) => {
 	const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${chatId}&text=${text}&disable_notification=${!notify}`
-	console.log("sending message using url: " + url)
+	// DONT LOG URL WITH TOKEN FOOL
+	log('send message URL constructed. chatID, text, isNotify', chatId, text, notify)
 	return url
 }
 
