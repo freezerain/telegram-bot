@@ -2,6 +2,10 @@ import { log, loge } from './Utility.js'
 import * as keywords from './keywordList.js'
 import {botGreetingMsg} from './botMessages.js'
 import * as telegramApi from './telegramApi.js'
+import { sendChuckNorrisJoke } from './chuckNorrisApi.js'
+import { send as jokeApi } from './rzunemoguApi.js'
+import { send as dogApi } from './dogApi.js'
+import { aiPrompt, aiStableDiffusion } from './ai.js'
 const isSendFallbackMsg = false
 
 export async function handleEventRequest(request, env) {
@@ -39,10 +43,28 @@ async function processPayload(payload, env) {
 async function handleMessageRequest(payload, env) {
   log('Handling message request', payload);
   const chatId = payload.message.chat.id;
-  const text = payload.message.text.trim().toLowerCase();
+  const words = payload.message.text.split(' ');
+  var text = payload.message.text.trim().toLowerCase();
   //If first symbol is slash -> remove it
-	const msg = (text.charAt(0) === '/') ? text.substring(1) : text;
-	log('Choosing routine with message', msg)
+	text = (text.startsWith('@ratalfred_bot ')) ? text.substring(15) : text;
+	text = (text.startsWith('@ratalfred_bot')) ? text.substring(14) : text;
+	text = (text.charAt(0) === '/') ? text.substring(1) : text;
+	const msg = text
+	const action = await messageRoutineRouter(chatId, msg, env)
+	if(action){
+		log('action executing', action)
+		await action()
+	}
+	else{
+    loge('Routine not found!', msg);
+	}
+
+}
+
+// TODO review all actions
+async function messageRoutineRouter(chatId, msg, env){
+
+	  log('Choosing routine with message', msg)
 
 	// TODO review all actions
   // Create a map of triggers to routines
@@ -81,16 +103,15 @@ async function handleMessageRequest(payload, env) {
     },
   };
 
-  // Check for matching routines
-  for (const [routineKey, routine] of Object.entries(routines)) {
-    if (routine.keywords.includes(msg) || routine.condition) {
-      console.log('Starting routine', routineKey);
-      await routine.action();
-      return;
+    // Check for matching routines
+    for (const [routineKey, routine] of Object.entries(routines)) {
+    	const words = msg.split(' ');
+    	const firstWord = words.length > 0 ? words[0].toLowerCase() : '';
+      if (routine.keywords.includes(firstWord) || routine.condition) {
+        console.log('Starting routine', routineKey);
+        return routine.action;
+      }
     }
-  }
-
-  loge('Routine not found!', msg);
 
   	//If no routine is found, check for fallback message
     if (routines.fallback.condition) {
