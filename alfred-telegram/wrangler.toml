@@ -2,6 +2,10 @@ name = "alfred-telegram"
 main = "src/index.js"
 compatibility_date = "2023-11-21"
 
+
+[ai]
+binding = "AI" # i.e. available in your Worker on env.AI
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables

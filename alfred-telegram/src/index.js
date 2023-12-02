@@ -11,9 +11,14 @@
 import { log, loge } from './Utility.js'
 import { handleEventRequest } from './fetchHandler.js'
 
+const Env = {
+  // If you set another name in wrangler.toml as the value for 'binding',
+  // replace "AI" with the variable name you defined.
+  AI: null,
+};
+
 export default {
 	async fetch(request, env, ctx) {
-		//return new Response('Hello World!');
 		log('Fetch request received', request)
 		return await handleEventRequest(request, env)
 	},
