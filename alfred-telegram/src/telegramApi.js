@@ -7,16 +7,19 @@ export const sendMessageURL = (chatId, text, notify, env) => {
 	return url
 }
 
-
+export const sendPhotoURL = (chatId, photo, caption, notify, env) => {
+	const url = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendPhoto?chat_id=${chatId}&photo=${photo}&caption=${caption}&disable_notification=${!notify}`
+	// DONT LOG URL WITH TOKEN FOOL
+	log('send photo URL constructed. chatID, caption, isNotify', chatId, caption, notify)
+	return url
+}
 
 
 
 function createDivinityPoll(chatId){
   return `https://api.telegram.org/bot${API_KEY}/sendPoll?chat_id=${chatId}&question=${pollBodyText}&options=${JSON.stringify([postivePollOption, negativePollOption])}`
 }
-function sendPhotoURL(chatId, photo, caption){
-  return `https://api.telegram.org/bot${API_KEY}/sendPhoto?chat_id=${chatId}&photo=${photo}&caption=${caption}&disable_notification=true`
-}
+
 function sendMediaGroup(chatId, media){
   return `https://api.telegram.org/bot${API_KEY}/sendMediaGroup?chat_id=${chatId}&media=${media}&disable_notification=true`
 }
