@@ -20,7 +20,8 @@ export async function handleEventRequest(request, env) {
        return new Response('Request should be POST')
      }
   } catch (error) {
-    loge('Error handling request', error);
+    loge('Error handling request', error.message);
+    loge('Call stack:', error.stack);
     return new Response('Exception during handling request: ' + error)
   }
   // TODO Instead of always returns OK, use callbacks
