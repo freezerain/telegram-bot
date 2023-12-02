@@ -75,13 +75,13 @@ async function messageRoutineRouter(chatId, msg, env){
         action: async () => await fetch(telegramApi.sendMessageURL(chatId, botGreetingMsg, false, env)),
       },
       ai: {
-              keywords: keywords.aiList,
-              action: async () => await aiPrompt(msg, chatId, env),
-            },
+        keywords: keywords.aiList,
+        action: async () => await aiPrompt(msg, chatId, env),
+      },
       aiStableDiffusion: {
-              keywords: keywords.stableDiffusion,
-              action: async () => await aiStableDiffusion(msg, chatId, env),
-            },
+        keywords: keywords.stableDiffusion,
+        action: async () => await aiStableDiffusion(msg, chatId, env),
+      },
       tiktok: {
         keywords: keywords.tiktokList,
         action: async () => await fetch(sendMessageURL(chatId, tiktokMsg, false)),
@@ -107,13 +107,13 @@ async function messageRoutineRouter(chatId, msg, env){
         action: async () => await sendMultiDog(chatId),
       },
       chuckNorris: {
-              keywords: keywords.chuckNorrisList,
-              action: async () => await sendChuckNorrisJoke(chatId, env),
-            },
+        keywords: keywords.chuckNorrisList,
+        action: async () => await sendChuckNorrisJoke(chatId, env),
+      },
       joke: {
-              keywords: keywords.jokeList,
-              action: async () => await jokeApi(chatId, env),
-            },
+        keywords: keywords.jokeList,
+        action: async () => await jokeApi(chatId, env),
+      },
       fallback: {
         condition: isSendFallbackMsg,
         action: async () => await sendMessageURL(chatId, fallbackMsg, false),
