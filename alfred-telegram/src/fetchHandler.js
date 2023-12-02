@@ -67,42 +67,56 @@ async function messageRoutineRouter(chatId, msg, env){
 
 	  log('Choosing routine with message', msg)
 
-	// TODO review all actions
-  // Create a map of triggers to routines
-  const routines = {
-    greetings: {
-      keywords: keywords.greetingList,
-      action: async () => await fetch(telegramApi.sendMessageURL(chatId, botGreetingMsg, false, env)),
-    },
-    tiktok: {
-      keywords: keywords.tiktokList,
-      action: async () => await fetch(sendMessageURL(chatId, tiktokMsg, false)),
-    },
-    dogo: {
-      keywords: keywords.dogList,
-      action: async () => await sendDogPhotoURL(chatId),
-    },
-    divinity: {
-      keywords: keywords.divinityList,
-      action: async () => await fetch(createDivinityPoll(chatId)),
-    },
-    giphy: {
-      keywords: keywords.morningList,
-      action: async () => await sendGiphyMsg(chatId),
-    },
-    epicGames: {
-      keywords: keywords.epicGamesList,
-      action: async () => await sendFreeEpicGamesList(chatId, true),
-    },
-    multiDog: {
-      keywords: keywords.multiDogList,
-      action: async () => await sendMultiDog(chatId),
-    },
-    fallback: {
-      condition: isSendFallbackMsg,
-      action: async () => await sendMessageURL(chatId, fallbackMsg, false),
-    },
-  };
+    const routines = {
+      greetings: {
+        keywords: keywords.greetingList,
+        action: async () => await fetch(telegramApi.sendMessageURL(chatId, botGreetingMsg, false, env)),
+      },
+      ai: {
+              keywords: keywords.aiList,
+              action: async () => await aiPrompt(msg, chatId, env),
+            },
+      aiStableDiffusion: {
+              keywords: keywords.stableDiffusion,
+              action: async () => await aiStableDiffusion(msg, chatId, env),
+            },
+      tiktok: {
+        keywords: keywords.tiktokList,
+        action: async () => await fetch(sendMessageURL(chatId, tiktokMsg, false)),
+      },
+      dogApi: {
+        keywords: keywords.dogList,
+        action: async () => await dogApi(chatId, env),
+      },
+      divinity: {
+        keywords: keywords.divinityList,
+        action: async () => await fetch(createDivinityPoll(chatId)),
+      },
+      giphy: {
+        keywords: keywords.morningList,
+        action: async () => await sendGiphyMsg(chatId),
+      },
+      epicGames: {
+        keywords: keywords.epicGamesList,
+        action: async () => await sendFreeEpicGamesList(chatId, true),
+      },
+      multiDog: {
+        keywords: keywords.multiDogList,
+        action: async () => await sendMultiDog(chatId),
+      },
+      chuckNorris: {
+              keywords: keywords.chuckNorrisList,
+              action: async () => await sendChuckNorrisJoke(chatId, env),
+            },
+      joke: {
+              keywords: keywords.jokeList,
+              action: async () => await jokeApi(chatId, env),
+            },
+      fallback: {
+        condition: isSendFallbackMsg,
+        action: async () => await sendMessageURL(chatId, fallbackMsg, false),
+      },
+    };
 
     // Check for matching routines
     for (const [routineKey, routine] of Object.entries(routines)) {
