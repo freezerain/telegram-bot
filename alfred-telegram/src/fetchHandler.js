@@ -33,8 +33,10 @@ async function processPayload(payload, env) {
   switch (true) {
     case 'poll' in payload && payload.poll.total_voter_count === 4:
       await handlePollRequest(payload, env);
+      break;
     case 'message' in payload:
       await handleMessageRequest(payload, env);
+      break;
     default:
       loge('Request without POLL and MESSAGE in payload');
       return new Response('Request should contain POLL or MESSAGE in payload');
