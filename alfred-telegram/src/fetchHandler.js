@@ -92,9 +92,11 @@ async function handleMessageRequest(payload, env) {
 
   loge('Routine not found!', msg);
 
-	//If no routine is found, check for fallback message
-  if (routine.fallback.condition) {
-  	log('Sending fallback message')
-    await routine.fallback.action();
-  }
+  	//If no routine is found, check for fallback message
+    if (routines.fallback.condition) {
+    	log('Sending fallback message')
+      return routines.fallback.action;
+    }
+
+		return null;
 }
