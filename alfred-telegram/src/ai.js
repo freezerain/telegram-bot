@@ -76,18 +76,43 @@ async function aiPromptStream(msg, chatId, env){
   };
 }
 
+
+//TODO Cloudflare timeout, maybe bug on their side
+//review feature later
+//this is not working for the moment
 export async function aiStableDiffusion(msg, chatId, env){
   const ai = new Ai(env.AI);
 
 	//remove first word
 	const words = msg.split(' ');
   const userPrompt = words.length>1 ? words.slice(1).join(' ') : msg
-
+	log("ai making run")
+	//binary string
 	const response = await ai.run("@cf/stabilityai/stable-diffusion-xl-base-1.0", {
 		prompt: userPrompt,
 		num_steps: 1
 	});
+	log('ai forming data')
+	const formData = new FormData();
 
-  const url = sendPhotoURL(chatId, response, userPrompt, false, env)
-  await fetch(url).then(resp => resp.json())
+  // Append the image data to the FormData object
+  const blob = new Blob([response], { type: 'image/png' });
+  formData.append('file', blob, 'filename.png');
+
+	log('ai sending pic')
+	//log("stable diffusion response", response)
+  const url = sendPhotoURL(chatId, formData, userPrompt, false, env)
+  const caption = 'stable dif'
+  const notify = true
+  await fetch('https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendPhoto?chat_id=${chatId}&caption=${caption}&disable_notification=${!notify}', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      // Add any additional headers required by the second API
+      // Note: 'Content-Type' is set automatically when using FormData
+    },
+  }).then(resp => resp.json()).catch(e=> loge('error fetching', e))
+
+	log('ai done')
+  //await fetch(url).then(resp => resp.json())
 }
