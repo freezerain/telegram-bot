@@ -1,5 +1,7 @@
 export const greetingList = ['привет', 'hello', 'ghbdtn', 'hi']
 export const aiList = ['ab', 'ai', 'аи', 'фш']
+export const llamaAi = ['llama', 'lama', 'лама', 'дфьф', 'ддфьф', 'kfvf']
+export const openAi = ['гпт', 'gpt', 'ugn', 'пзе', 'xfn', 'чат', 'chatgpt', 'чатгпт', 'openai']
 export const stableDiffusion = ['sd', 'сд', 'ыв', 'картинка', 'image', 'photo', 'фото', 'paint', 'нарисуй']
 export const chuckNorrisList = ['xfr', 'chuck', 'norris', 'chuck norris', 'чак', 'норрис', 'чак норрис', 'chuck noris', 'noris']
 export const jokeList = ['joke', 'ощлу']

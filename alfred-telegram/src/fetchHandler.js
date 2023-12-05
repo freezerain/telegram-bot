@@ -6,6 +6,7 @@ import { sendChuckNorrisJoke } from './chuckNorrisApi.js'
 import { send as jokeApi } from './rzunemoguApi.js'
 import { send as dogApi } from './dogApi.js'
 import { aiPrompt, aiStableDiffusion } from './ai.js'
+import {prompt as openAi} from './openAi.js'
 const isSendFallbackMsg = false
 
 export async function handleEventRequest(request, env) {
@@ -65,6 +66,9 @@ async function handleMessageRequest(payload, env) {
 }
 
 // TODO review all actions
+//Add request to all AI LLM models
+//Add request to AI LLM with context
+//Add default AI request
 async function messageRoutineRouter(chatId, msg, env){
 
 	  log('Choosing routine with message', msg)
@@ -78,6 +82,10 @@ async function messageRoutineRouter(chatId, msg, env){
         keywords: keywords.aiList,
         action: async () => await aiPrompt(msg, chatId, env),
       },
+      openAi: {
+              keywords: keywords.openAi,
+              action: async () => await openAi(msg, chatId, env),
+            },
       aiStableDiffusion: {
         keywords: keywords.stableDiffusion,
         action: async () => await aiStableDiffusion(msg, chatId, env),
