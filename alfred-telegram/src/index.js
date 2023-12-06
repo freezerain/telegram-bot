@@ -8,8 +8,7 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import { log, loge } from './Utility.js'
-import { handleEventRequest } from './fetchHandler.js'
+import { log, loge, handleEventRequest } from './main.mjs'
 
 const Env = {
   // If you set another name in wrangler.toml as the value for 'binding',
