@@ -1,6 +1,7 @@
 /**
  * `npm run dev` to start a server at http://localhost:8787/
  * `npm run deploy` to publish
+ * `npm update @cloudflare/ai --save-dev` update AI
  * https://developers.cloudflare.com/workers/
  */
 

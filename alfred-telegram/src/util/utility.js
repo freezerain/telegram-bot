@@ -13,3 +13,40 @@ export function chunkString(str, chunkSize = DEFAULT_CHUNK_SIZE) {
 	log(TAG, 'chunking completed', chunks);
 	return chunks;
 }
+
+export function parseTimePassed(time) {
+	console.log(TAG, 'parsing time', time);
+
+	if (time === 0) {
+		return 0;
+	}
+
+	const seconds = Math.floor(time / 1000) % 60;
+	const minutes = Math.floor(time / 1000 / 60) % 60;
+	const hours = Math.floor(time / 1000 / 60 / 60) % 24;
+	const days = Math.floor(time / 1000 / 60 / 60 / 24);
+
+	const components = [];
+
+	if (days > 0) {
+		components.push(`${days} ${days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}`);
+	}
+
+	if (hours > 0) {
+		components.push(`${hours} ${hours === 1 ? 'час' : hours < 5 ? 'часа' : 'часов'}`);
+	}
+
+	if (minutes > 0) {
+		components.push(`${minutes} ${minutes === 1 ? 'минута' : minutes < 5 ? 'минуты' : 'минут'}`);
+	}
+
+
+	// Dont need seconds
+	if (seconds > 0) {
+		//components.push(`${seconds} ${seconds === 1 ? 'секунда' : seconds < 5 ? 'секунды' : 'секунд'}`);
+	}
+
+	const result = components.join(' ');
+	log(TAG, 'parse finished', result);
+	return result;
+}
