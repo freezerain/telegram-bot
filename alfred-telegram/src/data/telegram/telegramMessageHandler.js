@@ -17,9 +17,11 @@ export default function handle(update, env) {
 
 	const metadata = {
 		chat_id: update.message.chat.id,
+		message: update.message,
 		keyword: words[0].toLowerCase(),
 		msg: words.length > 1 ? words.slice(1).join(' ') : '',
 		words: words,
+		update: update,
 		env: env
 	};
 
