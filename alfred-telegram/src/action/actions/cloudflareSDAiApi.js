@@ -30,6 +30,8 @@ export default function call(metadata) {
 			//log('cloudflareSDAiApi response', resp)
 			log(TAG, 'creating blob file');
 			const blob = new Blob([resp], { type: 'image/png' });
+			// suggested faster way to parse the image
+			//const binaryData = Buffer.from(resp, 'binary');
 			log(TAG, 'forwarding to telegram');
 			return repo.sendPhoto(metadata.chat_id, blob);
 		}).then(resp => {
@@ -37,5 +39,6 @@ export default function call(metadata) {
 		})
 		.catch(e => {
 			loge(TAG, 'api error', e.message);
+			throw e
 		});
 }
