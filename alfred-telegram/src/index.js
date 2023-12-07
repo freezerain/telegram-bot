@@ -8,18 +8,18 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import { log, loge, handleEventRequest } from './main.mjs'
+import { log, loge, handleEventRequest } from './main.mjs';
 
 const Env = {
-  // If you set another name in wrangler.toml as the value for 'binding',
-  // replace "AI" with the variable name you defined.
-  AI: null,
+	// If you set another name in wrangler.toml as the value for 'binding',
+	// replace "AI" with the variable name you defined.
+	AI: null
 };
 
 export default {
 	async fetch(request, env, ctx) {
-		log('Fetch request received', request)
-		return await handleEventRequest(request, env)
-	},
+		log('Fetch request received', request);
+		return await handleEventRequest(request, env);
+	}
 };
 
