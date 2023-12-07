@@ -10,6 +10,7 @@ const TAG = 'openAiApi';
 const AI_MODEL = 'gpt-3.5-turbo-1106';
 const AI_ROLE = mainSystem;
 const CHAT_ACTION = 'typing';
+const AI_GATEWAY = 'https://gateway.ai.cloudflare.com/v1/d070db37359748344dff58e984f42d5a/open-ai/openai';
 
 export default function call(metadata) {
 	log(TAG, 'api request');
@@ -18,7 +19,8 @@ export default function call(metadata) {
 		throw new Error(TAG + ' error - user prompt is empty: ' + metadata?.msg);
 	}
 	const openai = new OpenAI({
-		apiKey: metadata.env.OPENAI_API_KEY
+		apiKey: metadata.env.OPENAI_API_KEY,
+		baseURL: AI_GATEWAY
 	});
 	const repo = new TelegramRepo(metadata.env);
 	return repo.sendChatAction(metadata.chat_id, CHAT_ACTION)
