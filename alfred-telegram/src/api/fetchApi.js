@@ -1,5 +1,6 @@
 import { log, loge } from '../main.mjs';
 
+const TAG = 'fetchApi';
 export default class Api {
 	constructor(baseUrl) {
 		this.baseUrl = baseUrl;
@@ -10,9 +11,8 @@ export default class Api {
 		return fetch(url, options)
 			.then(resp => resp.json())
 			.catch(e => {
-				loge('Error fetching url', e.message);
+				loge(TAG, 'error fetching url', e.message);
 				throw e;
 			});
 	}
 }
-

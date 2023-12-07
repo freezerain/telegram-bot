@@ -1,3 +1,5 @@
+// human readable text for bot to respond in telegram chat
+// should be localized accordingly
 export const helloMsg = 'Приветик! 👋';
 
 

@@ -1,11 +1,17 @@
+// this module is a main entrypoint for code related import/export
+// for assets/resources check './res.mjs'
 import { log, loge } from './util/logger.js';
 import { chunkString } from './util/utility.js';
 import Api from './api/fetchApi.js';
 import TelegramApi from './api/telegramApi.js';
-import TelegramRepo from './data/telegramRepo.js';
+import TelegramRepo from './data/telegram/telegramRepo.js';
 import { handleEventRequest } from './fetchHandler.js';
-import getAction from './actions/actionRouter.js';
+import getAction from './action/actionRouter.js';
+import telegramEventRouter from './data/telegram/telegramHandlerRouter.js';
+import telegramMessageHandler from './data/telegram/telegramMessageHandler.js';
+import cloudflareEventRequestHandler from './data/cloudflareEventRequestHandler.js'
 
 export { log, loge, chunkString };
 export { Api, TelegramApi, TelegramRepo };
-export { handleEventRequest, getAction };
+export { telegramEventRouter, telegramMessageHandler, getAction };
+export { cloudflareEventRequestHandler, handleEventRequest };

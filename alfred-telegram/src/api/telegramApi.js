@@ -1,6 +1,14 @@
-import Api from './fetchApi.js';
 import { log, loge } from '../main.mjs';
 
+
+//TODO implement remaining endpoints
+//https://core.telegram.org/bots/api#sendaudio
+//https://core.telegram.org/bots/api#sendvideo
+//https://core.telegram.org/bots/api#sendvoice
+//https://core.telegram.org/bots/api#sendlocation
+
+//docs: https://core.telegram.org/bots/api#making-requests
+const TAG = 'telegramApi';
 
 export default class TelegramApi {
 	constructor(api) {
@@ -19,23 +27,7 @@ export default class TelegramApi {
 		};
 		return this.api.fetchData(endpoint, options)
 			.catch(e => {
-				loge(`Error in ${endpoint}`, params, e.message);
-				throw e;
-			});
-	}
-
-	//remove old pattern
-	buildFetchURLSearchParams(endpoint, params, fetchMethod = 'POST') {
-		const filteredParams = Object.entries(params)
-			.filter(([key, value]) => value !== null && value !== undefined);
-		const options = {
-			method: fetchMethod,
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams(filteredParams)
-		};
-		return this.api.fetchData(endpoint, options)
-			.catch(e => {
-				loge(`Error in ${endpoint}`, params, e.message);
+				loge(TAG, `error fetching telegram`, endpoint, params, e.message);
 				throw e;
 			});
 	}
@@ -159,12 +151,4 @@ export default class TelegramApi {
 		};
 		return this.buildFetch(endpoint, params);
 	}
-
-	//TODO implement remaining endpoints
-	//https://core.telegram.org/bots/api#sendaudio
-	//https://core.telegram.org/bots/api#sendvideo
-	//https://core.telegram.org/bots/api#sendvoice
-	//https://core.telegram.org/bots/api#sendlocation
-
 }
-

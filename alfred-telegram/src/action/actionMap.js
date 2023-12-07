@@ -15,7 +15,9 @@ const actionMap = {
 
 	greetings: {
 		keywords: keywords.greetings,
-		action: (metadata) => new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, helloMsg)
+		action: (metadata) => {
+			return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, helloMsg);
+		}
 	},
 
 	ai: {
@@ -46,21 +48,21 @@ const actionMap = {
 	poll: {
 		keywords: keywords.poll,
 		action: (metadata) => {
-			throw new Error('not implemented');
+			throw new Error('actionMap not implemented');
 		}
 	},
 
 	giphyApi: {
 		keywords: keywords.giphyApi,
 		action: (metadata) => {
-			throw new Error('not implemented');
+			throw new Error('actionMap not implemented');
 		}
 	},
 
 	epicGamesApi: {
 		keywords: keywords.epicGamesApi,
 		action: (metadata) => {
-			throw new Error('not implemented');
+			throw new Error('actionMap not implemented');
 		}
 	},
 
@@ -71,7 +73,9 @@ const actionMap = {
 
 	testTelegramApiSendAction: {
 		keywords: keywords.testTelegramApiSendAction,
-		action: (metadata) => new TelegramRepo(metadata.env).sendChatAction(metadata.chat_id)
+		action: (metadata) => {
+			return new TelegramRepo(metadata.env).sendChatAction(metadata.chat_id);
+		}
 	},
 
 	diceThrow: {
@@ -81,6 +85,8 @@ const actionMap = {
 
 };
 
-export const fallbackAction = (metadata) => new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, FALLBACK_MESSAGE);
+export const fallbackAction = (metadata) => {
+	return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, FALLBACK_MESSAGE);
+};
 
 export default actionMap;

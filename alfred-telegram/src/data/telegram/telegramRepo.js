@@ -1,9 +1,12 @@
-import { log, loge, Api, TelegramApi } from '../main.mjs';
+import { Api, TelegramApi } from '../../main.mjs';
 
-
+const BASE_URL = 'https://api.telegram.org/bot';
+const DEFAULT_CHAT_ACTION = 'typing';
+// Repository/Service/Facade for telegram api calls
+// this layer may be needed for caching and stuff
 export default class TelegramRepo {
 	constructor(env) {
-		this.api = new Api(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}`);
+		this.api = new Api(`${BASE_URL}${env.TELEGRAM_BOT_TOKEN}`);
 		this.telegramApi = new TelegramApi(this.api);
 	}
 
@@ -37,7 +40,7 @@ export default class TelegramRepo {
 		return this.telegramApi.sendDice(chat_id, emoji);
 	}
 
-	sendChatAction(chat_id, action = 'typing') {
+	sendChatAction(chat_id, action = DEFAULT_CHAT_ACTION) {
 		return this.telegramApi.sendChatAction(chat_id, action);
 	}
 }
