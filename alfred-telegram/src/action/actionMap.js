@@ -6,6 +6,7 @@ import diceThrow from './actions/diceThrow.js';
 import openAiApi from './actions/openAiApi.js';
 import cloudflareLLMAiApi from './actions/cloudflareLLMAiApi.js';
 import cloudflareSDAiApi from './actions/cloudflareSDAiApi.js';
+import giphyApi from './actions/giphyApi.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
@@ -57,9 +58,7 @@ const actionMap = {
 
 	giphyApi: {
 		keywords: keywords.giphyApi,
-		action: (metadata) => {
-			throw new Error('actionMap not implemented');
-		}
+		action: (metadata) => giphyApi(metadata)
 	},
 
 	epicGamesApi: {

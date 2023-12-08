@@ -9,10 +9,10 @@ export const cloudflareSDAiApi = ['sd', 'сд', 'pic', 'картинка', 'imag
 export const goodBoyApi = ['dog', 'dogo', 'пёс', 'пес', 'собака', 'собачка', 'дог', 'дого'];
 export const chuckNorrisApi = ['chuck', 'chuck norris', 'чак', 'чак норрис'];
 export const diceThrow = ['dice', 'random', 'rand', 'кости'];
+export const giphyApi = ['morning', 'утро', 'доброе утро', 'gif', 'giphy', 'гиф'];
 
 // not implemented
 export const poll = ['poll', 'опрос'];
-export const giphyApi = ['morning', 'утро', 'доброе утро', 'gif', 'giphy', 'гифи'];
 export const epicGamesApi = ['epic', 'эпик', 'епик', 'игры', 'games'];
 
 // test actions
