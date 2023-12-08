@@ -3,6 +3,7 @@
 export const greetings = ['привет', 'hello', 'ghbdtn', 'hi', 'прив'];
 export const ai = ['ab', 'ai', 'аи', 'фш'];
 export const openAiApi = ['гпт', 'gpt', 'чат', 'chatgpt', 'чатгпт', 'openai'];
+export const openAiApiGPT4 = ['ai4', 'аи4', 'гпт4', 'gpt4', 'чат4', 'chatgpt4', 'чатгпт4', 'openai4'];
 export const cloudflareLLMAiApi = ['llama', 'lama', 'лама'];
 export const cloudflareSDAiApi = ['sd', 'сд', 'pic', 'картинка', 'image', 'photo', 'фото'];
 export const goodBoyApi = ['dog', 'dogo', 'пёс', 'пес', 'собака', 'собачка', 'дог', 'дого'];

@@ -10,7 +10,6 @@ import cloudflareSDAiApi from './actions/cloudflareSDAiApi.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
-
 const actionMap = {
 
 	greetings: {
@@ -33,6 +32,11 @@ const actionMap = {
 	openAiApi: {
 		keywords: keywords.openAiApi,
 		action: (metadata) => openAiApi(metadata)
+	},
+
+	openAiApiGPT4: {
+		keywords: keywords.openAiApiGPT4,
+		action: (metadata) => openAiApi(metadata, true)
 	},
 
 	cloudflareSDAiApi: {
