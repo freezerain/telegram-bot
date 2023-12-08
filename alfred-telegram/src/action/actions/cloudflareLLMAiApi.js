@@ -1,6 +1,6 @@
 import { Ai } from '@cloudflare/ai';
 import { chunkString, log, loge, TelegramRepo } from '../../main.mjs';
-import { mainSystem } from '../../res.mjs';
+import { prompts } from '../../res.mjs';
 
 //	npm update @cloudflare/ai --save-dev
 // 	available models:
@@ -10,7 +10,7 @@ import { mainSystem } from '../../res.mjs';
 
 const TAG = 'cloudflareLLMAiApi';
 const AI_MODEL = '@cf/meta/llama-2-7b-chat-fp16';
-const AI_ROLE = mainSystem;
+const AI_ROLE = prompts.mainSystem;
 const CHAT_ACTION = 'typing';
 
 export default function call(metadata) {

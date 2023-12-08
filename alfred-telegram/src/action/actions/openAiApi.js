@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 
 import { chunkString, log, loge, TelegramRepo } from '../../main.mjs';
-import { mainSystem } from '../../res.mjs';
+import { prompts } from '../../res.mjs';
 
 // To use function as like in tutorial
 //https://developers.cloudflare.com/workers/tutorials/openai-function-calls-workers/
@@ -9,7 +9,7 @@ import { mainSystem } from '../../res.mjs';
 const TAG = 'openAiApi';
 const AI_MODEL = 'gpt-3.5-turbo-1106';
 const CHAT_GPT4_MODEL = 'gpt-4-1106-preview';
-const AI_ROLE = mainSystem;
+const AI_ROLE = prompts.mainSystem;
 const CHAT_ACTION = 'typing';
 const AI_GATEWAY = 'https://gateway.ai.cloudflare.com/v1/d070db37359748344dff58e984f42d5a/open-ai/openai';
 

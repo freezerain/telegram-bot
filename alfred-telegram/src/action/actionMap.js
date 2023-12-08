@@ -1,5 +1,4 @@
-import * as keywords from '../res/keywords.js';
-import { helloMsg } from '../res/strings.js';
+import { keywords, strings } from '../res.mjs';
 import { TelegramRepo } from '../main.mjs';
 import chuckNorrisApi from './actions/chuckNorrisApi.js';
 import goodBoyApi from './actions/goodBoyApi.js';
@@ -15,7 +14,7 @@ const actionMap = {
 	greetings: {
 		keywords: keywords.greetings,
 		action: (metadata) => {
-			return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, helloMsg);
+			return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, strings.helloMsg);
 		}
 	},
 
