@@ -12,8 +12,9 @@ export function loge(tag, msg, ...details) {
 
 function logging(tag, msg, isError = false, ...details) {
 	if (!((isError && IS_LOG_ERROR) || (!isError && IS_LOG_CONSOLE))) return;
-	const formattedDetails = details.map((param) => JSON.stringify(param)).filter(Boolean).join(' | ');
-	const str = `tag: ${tag}. msg: ${msg}. ${formattedDetails}`.slice(0, MAX_LOGGING_LENGTH);
+	const formattedDetails = details.map((param) => `\n	> ${JSON.stringify(param)}`)
+		.filter(Boolean).join(', ');
+	const str = `${tag}: ${msg} ${formattedDetails}`.slice(0, MAX_LOGGING_LENGTH);
 	const logger = isError ? console.error : console.log;
 	logger(str);
 }
