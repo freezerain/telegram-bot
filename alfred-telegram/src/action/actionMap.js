@@ -7,6 +7,7 @@ import openAiApi from './actions/openAiApi.js';
 import cloudflareLLMAiApi from './actions/cloudflareLLMAiApi.js';
 import cloudflareSDAiApi from './actions/cloudflareSDAiApi.js';
 import giphyApi from './actions/giphyApi.js';
+import epicGamesApi from './actions/epicGamesApi.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
@@ -63,9 +64,7 @@ const actionMap = {
 
 	epicGamesApi: {
 		keywords: keywords.epicGamesApi,
-		action: (metadata) => {
-			throw new Error('actionMap not implemented');
-		}
+		action: (metadata) => epicGamesApi(metadata)
 	},
 
 	chuckNorrisApi: {
