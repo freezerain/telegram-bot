@@ -1,5 +1,5 @@
-import { keywords, strings } from '../res.mjs';
-import { TelegramRepo } from '../main.mjs';
+import {keywords, strings} from '../res.mjs';
+import {TelegramApi} from '../main.mjs';
 import chuckNorrisApi from './actions/chuckNorrisApi.js';
 import goodBoyApi from './actions/goodBoyApi.js';
 import diceThrow from './actions/diceThrow.js';
@@ -16,7 +16,8 @@ const actionMap = {
 	greetings: {
 		keywords: keywords.greetings,
 		action: (metadata) => {
-			return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, strings.helloMsg);
+			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
+				.sendMessage({chat_id: metadata.chat_id, text: strings.helloMsg, reply_to_message_id: metadata.message_id});
 		}
 	},
 
@@ -75,7 +76,8 @@ const actionMap = {
 	testTelegramApiSendAction: {
 		keywords: keywords.testTelegramApiSendAction,
 		action: (metadata) => {
-			return new TelegramRepo(metadata.env).sendChatAction(metadata.chat_id);
+			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
+				.sendChatAction({chat_id: metadata.chat_id});
 		}
 	},
 
@@ -87,7 +89,10 @@ const actionMap = {
 };
 
 export const fallbackAction = (metadata) => {
-	return new TelegramRepo(metadata.env).sendMessage(metadata.chat_id, FALLBACK_MESSAGE);
+	return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN).sendMessage({
+		chat_id: metadata.chat_id,
+		text: FALLBACK_MESSAGE
+	});
 };
 
 export default actionMap;

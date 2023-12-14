@@ -1,4 +1,4 @@
-import { log, loge } from '../main.mjs';
+import { log, loge, buildError } from '../main.mjs';
 
 const TAG = 'fetchApi';
 export default class Api {
@@ -6,13 +6,19 @@ export default class Api {
 		this.baseUrl = baseUrl;
 	}
 
-	fetchData(endpoint, options = {}) {
-		const url = `${this.baseUrl}/${endpoint}`;
+	fetchData(endpoint = null, options = {}) {
+		const url = `${this.baseUrl}${endpoint ? '/' + endpoint : ''}`;
 		return fetch(url, options)
-			.then(resp => resp.json())
+			.then(resp => {
+				if (!resp.ok) {
+					return resp.text().then(text => {
+						throw buildError(TAG, new Error(`Response was error, status: ${resp.status} - ${resp.statusText}. text: ${text}`))
+					})
+				}
+				return resp.json();
+			})
 			.catch(e => {
-				loge(TAG, 'error fetching url', e.message);
-				throw e;
+				throw buildError(TAG, e, 'Fetch failed');
 			});
 	}
 }

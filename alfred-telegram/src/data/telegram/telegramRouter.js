@@ -1,4 +1,4 @@
-import { log, loge, telegramMessageHandler } from '../../main.mjs';
+import { log, loge, telegramMessageHandler, buildError } from '../../main.mjs';
 
 const TAG = 'telegramHandlerRouter';
 // all update types can be found here
@@ -18,7 +18,6 @@ export default function handleUpdate(update, env) {
 	} /*else if ('poll' in update && update.poll.total_voter_count === 4) {
 		return handlePollUpdate(update, env);
 	}*/ else {
-		loge(TAG, 'handler for the update not found', update);
-		throw new Error(TAG + ' handler for the update not found ' + update);
+		throw buildError(TAG, new Error(`update type not supported${update}`), );
 	}
 }

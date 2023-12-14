@@ -1,4 +1,4 @@
-import { log, loge, Api, TelegramRepo } from '../../main.mjs';
+import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
 
 const TAG = 'chuckNorrisApi';
 const BASE_URL = 'https://api.chucknorris.io';
@@ -15,15 +15,14 @@ export default function call(metadata) {
 		})
 		.then(resp => {
 			log(TAG, 'forwarding to telegram', resp);
-			return new TelegramRepo(metadata.env)
-				.sendMessage(metadata.chat_id, resp.value);
+			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
+				.sendMessage({chat_id: metadata.chat_id, text: resp.value, reply_to_message_id: metadata.message_id});
 		})
 		.then(resp => {
 			log(TAG, 'api success');
 			return resp;
 		})
 		.catch(e => {
-			loge(TAG, 'api error', e.message);
-			throw e;
+			throw buildError(TAG, e);
 		});
 }

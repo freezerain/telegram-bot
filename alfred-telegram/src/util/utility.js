@@ -1,4 +1,4 @@
-import { log, loge } from '../main.mjs';
+import {log, loge} from '../main.mjs';
 
 const TAG = 'utility';
 const DEFAULT_CHUNK_SIZE = 3072;
@@ -41,7 +41,7 @@ export function parseTimePassed(time) {
 	}
 
 
-	// Dont need seconds
+	// Don't need seconds
 	if (seconds > 0) {
 		//components.push(`${seconds} ${seconds === 1 ? 'секунда' : seconds < 5 ? 'секунды' : 'секунд'}`);
 	}
@@ -49,4 +49,9 @@ export function parseTimePassed(time) {
 	const result = components.join(' ');
 	log(TAG, 'parse finished', result);
 	return result;
+}
+
+export const buildError = (tag, e, msg = '') => {
+	loge(tag, e.message, e.stack);
+	return new Error(`> ${tag}${msg ? ' -> ' + msg : ''}: ${e.message}`);
 }

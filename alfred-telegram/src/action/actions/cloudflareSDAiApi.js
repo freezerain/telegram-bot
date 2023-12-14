@@ -1,5 +1,5 @@
-import { Ai } from '@cloudflare/ai';
-import { log, loge, TelegramRepo } from '../../main.mjs';
+import {Ai} from '@cloudflare/ai';
+import {log, loge, TelegramApi, buildError} from '../../main.mjs';
 
 // TODO Cloudflare timeout, maybe bug on their side
 // review feature later
@@ -12,13 +12,12 @@ const CHAT_ACTION = 'upload_photo';
 export default function call(metadata) {
 	log(TAG, 'api request');
 	if (!metadata.msg) {
-		loge(TAG, 'userPrompt was empty, throwing exception');
-		throw new Error(TAG + ' error - user prompt is empty: ' + metadata?.msg);
+		throw buildError(TAG, new Error(`user prompt is empty msg: ${metadata.msg}`));
 	}
 	const ai = new Ai(metadata.env.AI);
 	//returns binary string
-	const repo = new TelegramRepo(metadata.env);
-	return repo.sendChatAction(metadata.chat_id, CHAT_ACTION)
+	const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
+	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
 		.then(() => {
 			log(TAG, 'ai request');
 			return ai.run(AI_MODEL, { // <-- Timeout on this line!
@@ -29,16 +28,18 @@ export default function call(metadata) {
 			// dont log binary file, cloudflare logger is crashing lol
 			//log('cloudflareSDAiApi response', resp)
 			log(TAG, 'creating blob file');
-			const blob = new Blob([resp], { type: 'image/png' });
+			const blob = new Blob([resp], {type: 'image/png'});
 			// suggested faster way to parse the image
 			//const binaryData = Buffer.from(resp, 'binary');
 			log(TAG, 'forwarding to telegram');
-			return repo.sendPhoto(metadata.chat_id, blob);
+			return repo.sendPhoto({
+				chat_id: metadata.chat_id, photo: blob,
+				reply_to_message_id: metadata.message_id
+			});
 		}).then(resp => {
 			log(TAG, 'api success', resp);
 		})
 		.catch(e => {
-			loge(TAG, 'api error', e.message);
-			throw e
+			throw buildError(TAG, e)
 		});
 }

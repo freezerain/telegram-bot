@@ -1,4 +1,5 @@
-import {log, loge, Api, TelegramRepo} from '../../main.mjs';
+import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
+
 const TAG = 'epicGamesApi';
 const EPIC_GAMES_BASE_URL = 'https://store-site-backend-static.ak.epicgames.com';
 const EPIC_GAMES_ENDPOINT = 'freeGamesPromotions';
@@ -8,11 +9,12 @@ const TELEGRAM_CAPTION = '🤑 Сегодня бесплатно в епик с�
 
 export default function call(metadata) {
 	log(TAG, 'api build');
-	const repo = new TelegramRepo(metadata.env);
-	return repo.sendChatAction(metadata.chat_id, CHAT_ACTION).then(() => {
-		log(TAG, 'api request');
-		return new Api(EPIC_GAMES_BASE_URL).fetchData(EPIC_GAMES_ENDPOINT);
-	})
+	const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
+	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
+		.then(() => {
+			log(TAG, 'api request');
+			return new Api(EPIC_GAMES_BASE_URL).fetchData(EPIC_GAMES_ENDPOINT);
+		})
 		.then(resp => {
 			log(TAG, `api response`, resp);
 			return resp;
@@ -25,8 +27,7 @@ export default function call(metadata) {
 			return resp;
 		})
 		.catch(e => {
-			loge(TAG, 'api error', e.message);
-			throw e;
+			throw buildError(TAG, e)
 		});
 }
 
@@ -41,8 +42,13 @@ function forwardToTelegram(gameArr, repo, metadata) {
 		const batch = gameArr.slice(i, i + batchSize);
 		if (batch.length === 1) {
 			//use 'MarkdownV2' parse_mode
-			promises.push(repo.sendPhoto(metadata.chat_id, batch[0].thumbnail,
-				TELEGRAM_CAPTION + batch[0].url));
+			promises.push(repo.sendPhoto({
+				chat_id: metadata.chat_id,
+				photo: batch[0].thumbnail,
+				caption: TELEGRAM_CAPTION + '\n' + batch[0].url,
+				reply_to_message_id: metadata.message_id,
+				parse_mode: 'MarkdownV2'
+			}));
 		} else {
 			const imgArr = [];
 			const msgArr = [TELEGRAM_CAPTION,];
@@ -55,12 +61,15 @@ function forwardToTelegram(gameArr, repo, metadata) {
 				msgArr.push(batch[k].url);
 			}
 			//For mediaGroup telegram showing first image caption as group caption
-			if(imgArr[0]){
+			if (imgArr[0]) {
 				imgArr[0].caption = msgArr.join('\n');
 				//For text_url [text](url)
 				imgArr[0].parse_mode = 'MarkdownV2';
 			}
-			promises.push(repo.sendMediaGroup(metadata.chat_id, JSON.stringify(imgArr)));
+			promises.push(repo.sendMediaGroup({
+				chat_id: metadata.chat_id,
+				media: JSON.stringify(imgArr), reply_to_message_id: metadata.message_id
+			}));
 		}
 	}
 	return Promise.all(promises);
@@ -80,14 +89,14 @@ function buildGameArr(json) {
 	for (const item of json.data.Catalog.searchStore.elements) {
 		//check if promotion is present AND its 100% free
 		if (item.price.totalPrice.discountPrice !== 0 ||
-		item.promotions.promotionalOffers.length === 0) {
+			item.promotions.promotionalOffers.length === 0) {
 			continue;
 		}
 		const game = {
 			title: item.title,
 			currentPrice: item.price.totalPrice.discountPrice,
 			originalPrice: item.price.totalPrice.originalPrice,
-			curency: item.price.totalPrice.currencyCode,
+			currency: item.price.totalPrice.currencyCode,
 			thumbnail: (item.keyImages.find(i => i.type === 'Thumbnail') ?? item.keyImages[0]).url,
 			url: buildGoogleSearchURL(item.title)
 		}

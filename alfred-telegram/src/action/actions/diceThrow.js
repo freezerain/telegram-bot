@@ -1,4 +1,4 @@
-import { log, loge, TelegramRepo } from '../../main.mjs';
+import {log, loge, TelegramApi, buildError} from '../../main.mjs';
 
 //Defaults to “🎲”
 //values 1-6 for “🎲”, “🎯” and “🎳”
@@ -10,22 +10,27 @@ const CHAT_ACTION = 'choose_sticker';
 
 export default function call(metadata) {
 	log(TAG, 'api request');
-	const repo = new TelegramRepo(metadata.env);
-	return repo.sendChatAction(metadata.chat_id, CHAT_ACTION)
+	const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
+	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
 		.then(() => {
 			//Show users all options
 			const msg = '🏀⚽🎲🎯🎳🎰';
-			return repo.sendMessage(metadata.chat_id, msg);
+			return repo.sendMessage({
+				chat_id: metadata.chat_id, text: msg,
+				reply_to_message_id: metadata.message_id
+			});
 		})
 		.then(() => {
-			return repo.sendDice(metadata.chat_id, metadata.msg);
+			return repo.sendDice({
+				chat_id: metadata.chat_id, emoji: metadata.msg,
+				reply_to_message_id: metadata.message_id
+			});
 		})
 		.then(resp => {
 			log(TAG, 'api success');
 			return resp;
 		})
 		.catch(e => {
-			loge(TAG, 'api error', e.message);
-			throw e;
+			throw buildError(TAG, e)
 		});
 }

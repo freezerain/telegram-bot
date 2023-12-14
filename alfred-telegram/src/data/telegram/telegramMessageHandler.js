@@ -1,4 +1,4 @@
-import { log, loge, getAction } from '../../main.mjs';
+import {log, loge, getAction, buildError} from '../../main.mjs';
 
 const TAG = 'telegramMessageHandler';
 const BOT_ACCOUNT_NAME = '@ratalfred_bot';
@@ -11,27 +11,32 @@ export default function handle(update, env) {
 
 	const words = text.split(' ');
 	if (words.length === 0) {
-		loge(TAG, ' empty message, no keyword', text);
-		throw new Error(TAG + ' empty message, no keyword: ' + text);
+		throw new Error(TAG + 'empty message');
 	}
 
 	const metadata = {
+		//shortcut fields
 		chat_id: update.message.chat.id,
-		message: update.message,
+		message_id: update.message.message_id,
+		//custom entities
 		keyword: words[0].toLowerCase(),
 		msg: words.length > 1 ? words.slice(1).join(' ') : '',
 		words: words,
+		//telegram entities
+		message: update.message,
+		user: update.message.from,
 		update: update,
 		env: env
 	};
 
-	log(TAG, 'metadata builded', metadata.chat_id, metadata.keyword, metadata.msg, metadata.words);
+	log(TAG, 'metadata built', `chat_id: ${metadata.chat_id}`,
+		`message_id: ${metadata.message_id}`, `keyword: ${metadata.keyword}`,
+		`msg: ${metadata.msg}`, `update ↓`, metadata.update);
 
 	const action = getAction(metadata.keyword);
 	if (action) {
 		return action(metadata);
 	} else {
-		loge(TAG, 'action not found', metadata.keyword);
-		throw new Error(TAG + 'action not found' + metadata.keyword);
+		throw buildError(TAG, new Error(`action not found: ${metadata.keyword}`));
 	}
 }
