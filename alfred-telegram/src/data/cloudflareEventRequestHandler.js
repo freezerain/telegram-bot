@@ -1,4 +1,4 @@
-import { log, loge, telegramRouter, TelegramApi, buildError } from '../main.mjs';
+import {log, loge, telegramRouter, TelegramApi, buildError} from '../main.mjs';
 
 const TAG = 'cloudflareEventRequestHandler';
 
@@ -12,20 +12,29 @@ export default async function handleRequest(request, env) {
 
 	log(TAG, 'forwarding request to handler');
 
-	return request.json().then((json) => telegramRouter(json, env))
+	return request.json()
+		.then((json) => telegramRouter(json, env))
 		.then(() => {
-		return new Response('OK');
-	}).catch(e => {
-		loge(TAG, 'error handling event request', e.message, e.stack);
-		return new Response('OK');
-		// TODO rethrow to chat here
-	});
+			return new Response('OK');
+		})
+		.catch(e => {
+			loge(TAG, 'error handling event request', e.message, e.stack);
+			return exceptionReport(e.message, env)
+				.then(() => {
+					return new Response('OK');
+				}).catch((e)=>{
+					loge(TAG, 'error reporting exception back to chat', e.message, e.stack);
+					return new Response('OK')
+				});
+		});
 }
-// TODO add dev chat ID secret
-function exceptionReport(request, msg, env) {
+
+// secret: DEV_CHAT_ID
+function exceptionReport(msg, env) {
 	const tgApi = new TelegramApi(env.TELEGRAM_BOT_TOKEN);
-	const chat_id = request?.message?.chat?.id;
-	return tgApi.sendMessage({chatId: chat_id, text:msg})
-		.then(resp => loge(TAG, 'exception callback sended'))
+	const chat_id = env.DEV_CHAT_ID;
+	log(TAG, 'chat id', chat_id);
+	return tgApi.sendMessage({chat_id: chat_id, text: msg})
+		.then(resp => loge(TAG, 'exception callback sent'))
 		.catch(e => loge(TAG, 'error reporting exception back to chat'));
 }

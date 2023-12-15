@@ -50,7 +50,7 @@ export function parseTimePassed(time) {
 	log(TAG, 'parse finished', result);
 	return result;
 }
-
+//TODO REmove this garbage
 export const buildError = (tag, e, msg = '') => {
 	loge(tag, e.message, e.stack);
 	return new Error(`> ${tag}${msg ? ' -> ' + msg : ''}: ${e.message}`);
