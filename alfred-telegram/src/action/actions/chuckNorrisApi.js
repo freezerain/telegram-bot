@@ -1,4 +1,4 @@
-import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
+import {log, loge, FetchApi, TelegramApi, buildError} from '../../main.mjs';
 
 const TAG = 'chuckNorrisApi';
 const BASE_URL = 'https://api.chucknorris.io';
@@ -7,7 +7,7 @@ const ENDPOINT = 'jokes/random';
 //https://api.chucknorris.io/
 export default function call(metadata) {
 	log(TAG, 'api request');
-	return new Api(BASE_URL)
+	return new FetchApi(BASE_URL)
 		.fetchData(ENDPOINT)
 		.then(resp => {
 			log(TAG, 'api response', resp);

@@ -1,4 +1,4 @@
-import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
+import {log, loge, FetchApi, TelegramApi, buildError} from '../../main.mjs';
 
 const TAG = 'epicGamesApi';
 const EPIC_GAMES_BASE_URL = 'https://store-site-backend-static.ak.epicgames.com';
@@ -13,7 +13,7 @@ export default function call(metadata) {
 	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
 		.then(() => {
 			log(TAG, 'api request');
-			return new Api(EPIC_GAMES_BASE_URL).fetchData(EPIC_GAMES_ENDPOINT);
+			return new FetchApi(EPIC_GAMES_BASE_URL).fetchData(EPIC_GAMES_ENDPOINT);
 		})
 		.then(resp => {
 			log(TAG, `api response`, resp);
@@ -89,7 +89,7 @@ function buildGameArr(json) {
 	for (const item of json.data.Catalog.searchStore.elements) {
 		//check if promotion is present AND its 100% free
 		if (item.price.totalPrice.discountPrice !== 0 ||
-			item.promotions.promotionalOffers.length === 0) {
+			item.promotions.promotionalOffers.length === 0 || isNewGame(item.id)) {
 			continue;
 		}
 		const game = {
@@ -98,6 +98,10 @@ function buildGameArr(json) {
 			originalPrice: item.price.totalPrice.originalPrice,
 			currency: item.price.totalPrice.currencyCode,
 			thumbnail: (item.keyImages.find(i => i.type === 'Thumbnail') ?? item.keyImages[0]).url,
+			id: item.id,
+			description: item.description,
+			offerType: item.offerType,
+			game: item,
 			url: buildGoogleSearchURL(item.title)
 		}
 		gamesArr.push(game);
@@ -106,4 +110,8 @@ function buildGameArr(json) {
 		`skipped: ${gamesArr.length - json.data.Catalog.searchStore.paging.total}`,
 		`games: ${gamesArr}`);
 	return gamesArr
+}
+//TODO Check in cloud if game is new
+function isNewGame(gameId){
+	return true;
 }

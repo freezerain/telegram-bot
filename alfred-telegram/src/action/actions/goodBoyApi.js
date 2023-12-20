@@ -1,4 +1,4 @@
-import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
+import {log, loge, FetchApi, TelegramApi, buildError} from '../../main.mjs';
 
 const TAG = 'goodBoyApi';
 const GOOD_BOY_BASE_URL = 'https://dog.ceo/api';
@@ -15,7 +15,7 @@ export default function call(metadata) {
 			log(TAG, 'good boy api request');
 
 			const breed = metadata.msg ? `breed/${metadata.msg.split(" ").reverse().join('/')}/images` : GOOD_BOY_RANDOM_BREED_TAG;
-			return new Api(GOOD_BOY_BASE_URL)
+			return new FetchApi(GOOD_BOY_BASE_URL)
 				.fetchData(breed + '/' + GOOD_BOY_ENDPOINT)
 		})
 		.then(resp => {

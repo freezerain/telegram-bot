@@ -1,4 +1,4 @@
-import {log, loge, Api, TelegramApi, buildError} from '../../main.mjs';
+import {log, loge, FetchApi, TelegramApi, buildError} from '../../main.mjs';
 import {tags} from '../../res.mjs';
 
 const TAG = 'giphyApi';
@@ -16,7 +16,7 @@ export default function call(metadata) {
 	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
 		.then(() => {
 			log(TAG, 'api request');
-			return new Api(GIPHY_API_BASE_URL).fetchData(endpoint);
+			return new FetchApi(GIPHY_API_BASE_URL).fetchData(endpoint);
 		})
 		.then(resp => {
 			log(TAG, 'api response', resp);

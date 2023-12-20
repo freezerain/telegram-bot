@@ -1,7 +1,7 @@
 import { log, loge, buildError } from '../main.mjs';
 
 const TAG = 'fetchApi';
-export default class Api {
+export default class FetchApi {
 	constructor(baseUrl) {
 		this.baseUrl = baseUrl;
 	}
