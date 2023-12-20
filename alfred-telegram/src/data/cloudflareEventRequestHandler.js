@@ -19,6 +19,8 @@ export default async function handleRequest(request, env) {
 		})
 		.catch(e => {
 			loge(TAG, 'error handling event request', e.message, e.stack);
+			// TODO Add custom exceptions
+			//and filter them here
 			return exceptionReport(e.message, env)
 				.then(() => {
 					return new Response('OK');
