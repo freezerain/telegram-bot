@@ -1,13 +1,20 @@
 {
   "name": "alfred-telegram",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "start": "wrangler dev"
+    "start": "wrangler dev",
+    "dev:remote": "wrangler dev --remote",
+    "dev:local": "wrangler deploy --dry-run --outdir out",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "tail": "wrangler tail --format=pretty",
+    "updateai": "update @cloudflare/ai --save-dev"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "wrangler": "^3.19.0"
   },
   "dependencies": {

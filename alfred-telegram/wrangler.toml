@@ -1,7 +1,10 @@
+# https://developers.cloudflare.com/workers/wrangler/configuration/#source-of-truth
+# This file should be Source Of Truth for wrangler configuration
+# changes from the dashboard should be avoided if possible
 name = "alfred-telegram"
 main = "src/index.js"
-compatibility_date = "2023-11-21"
-
+compatibility_date = "2023-12-15"
+minify = false
 
 [ai]
 binding = "AI" # i.e. available in your Worker on env.AI
@@ -53,3 +56,8 @@ binding = "AI" # i.e. available in your Worker on env.AI
 # [[migrations]]
 # tag = "v1"
 # new_classes = ["MyDurableObject"]
+
+# [miniflare]
+# kv_persist = true
+# cache_persist = true
+# durable_objects_persist = true
