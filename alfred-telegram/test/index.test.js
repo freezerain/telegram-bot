@@ -1,10 +1,10 @@
-import { jest } from '@jest/globals';
 import { unstable_dev } from 'wrangler';
+import { expect } from 'chai';
 
 describe('Unstable_dev fetch', () => {
 	let worker;
 
-	beforeAll(async () => {
+	before(async () => {
 		worker = await unstable_dev('./src/index.js', {
 			local: true,
 			experimental: { disableExperimentalWarning: true }
@@ -12,12 +12,12 @@ describe('Unstable_dev fetch', () => {
 	});
 
 	it('fetching', async () => {
-		const text = await worker.fetch().then((res) => res.text());
-		expect(text).not.toBeNull();
+		const res = await worker.fetch();
+		const text = await res.text();
+		expect(text).to.not.be.null;
 	});
 
-	afterAll(async () => {
+	after(async () => {
 		await worker.stop();
 	});
-
 });
