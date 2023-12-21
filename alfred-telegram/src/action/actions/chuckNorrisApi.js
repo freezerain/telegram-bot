@@ -23,6 +23,6 @@ export default function call(metadata) {
 			return resp;
 		})
 		.catch(e => {
-			throw buildError(TAG, e);
+			throw new Error('api fail', {cause:e})
 		});
 }
