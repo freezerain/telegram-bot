@@ -13,56 +13,68 @@ export default class TelegramApi {
 	}
 
 	sendMessage(options) {
-		return this.fetchBuilder.build(...endpoints.sendMessage(options));
+		const { endpoint, params } = endpoints.sendMessage(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	forwardMessage(options) {
-		return this.fetchBuilder.build(...endpoints.forwardMessage(options));
+		const { endpoint, params } = endpoints.forwardMessage(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendPhoto(options) {
-		return this.fetchBuilder.build(...endpoints.sendPhoto(options));
+		const { endpoint, params } = endpoints.sendPhoto(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendDocument(options) {
-		return this.fetchBuilder.build(...endpoints.sendDocument(options));
+		const { endpoint, params } = endpoints.sendDocument(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendAnimation(options) {
-		return this.fetchBuilder.build(...endpoints.sendAnimation(options));
+		const { endpoint, params } = endpoints.sendAnimation(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendMediaGroup(options) {
-		return this.fetchBuilder.build(...endpoints.sendMediaGroup(options));
+		const { endpoint, params } = endpoints.sendMediaGroup(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendPoll(options) {
-		return this.fetchBuilder.build(...endpoints.sendPoll(options));
+		const { endpoint, params } = endpoints.sendPoll(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendDice(options) {
-		return this.fetchBuilder.build(...endpoints.sendDice(options));
+		const { endpoint, params } = endpoints.sendDice(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendChatAction(options) {
-		return this.fetchBuilder.build(...endpoints.sendChatAction(options));
+		const { endpoint, params } = endpoints.sendChatAction(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendAudio(options) {
-		return this.fetchBuilder.build(...endpoints.sendAudio(options));
+		const { endpoint, params } = endpoints.sendAudio(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
-
 	sendVideo(options) {
-		return this.fetchBuilder.build(...endpoints.sendVideo(options));
+		const { endpoint, params } = endpoints.sendVideo(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendVoice(options) {
-		return this.fetchBuilder.build(...endpoints.sendVoice(options));
+		const { endpoint, params } = endpoints.sendVoice(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 	sendLocation(options) {
-		return this.fetchBuilder.build(...endpoints.sendLocation(options));
+		const { endpoint, params } = endpoints.sendLocation(options);
+		return this.fetchBuilder.build(endpoint, params);
 	}
 
 }

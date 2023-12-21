@@ -35,7 +35,6 @@ export default async function handleRequest(request, env) {
 function exceptionReport(msg, env) {
 	const tgApi = new TelegramApi(env.TELEGRAM_BOT_TOKEN);
 	const chat_id = env.DEV_CHAT_ID;
-	log(TAG, 'chat id', chat_id);
 	return tgApi.sendMessage({chat_id: chat_id, text: msg})
 		.then(resp => loge(TAG, 'exception callback sent'))
 		.catch(e => loge(TAG, 'error reporting exception back to chat'));
