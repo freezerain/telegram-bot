@@ -1,6 +1,3 @@
-import { log, loge, buildError } from '../main.mjs';
-
-const TAG = 'fetchApi';
 export default class FetchApi {
 	constructor(baseUrl) {
 		this.baseUrl = baseUrl;
@@ -12,13 +9,13 @@ export default class FetchApi {
 			.then(resp => {
 				if (!resp.ok) {
 					return resp.text().then(text => {
-						throw buildError(TAG, new Error(`Response was error, status: ${resp.status} - ${resp.statusText}. text: ${text}`))
+						throw new Error(`Response error, status: ${resp.status} - ${resp.statusText}. ${text}`);
 					})
 				}
 				return resp.json();
 			})
 			.catch(e => {
-				throw buildError(TAG, e, 'Fetch failed');
+				throw new Error('Fetch failed', { cause: e });
 			});
 	}
 }
