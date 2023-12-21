@@ -89,10 +89,10 @@ const actionMap = {
 };
 
 export const fallbackAction = (metadata) => {
-	return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN).sendMessage({
-		chat_id: metadata.chat_id,
-		text: FALLBACK_MESSAGE
-	});
+	return new Promise((resolve, reject) => {
+		console.log(FALLBACK_MESSAGE);
+		resolve(FALLBACK_MESSAGE)
+	})
 };
 
 export default actionMap;

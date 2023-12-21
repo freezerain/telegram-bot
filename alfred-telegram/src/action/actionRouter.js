@@ -2,7 +2,7 @@ import { log, loge } from '../main.mjs';
 import actionMap, { fallbackAction } from './actionMap.js';
 
 const TAG = 'actionRouter';
-const IS_SEND_FALLBACK = false;
+const IS_SEND_FALLBACK = true;
 
 export default function getAction(keyword) {
 	for (const [key, val] of Object.entries(actionMap)) {
