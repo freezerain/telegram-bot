@@ -13,17 +13,18 @@
     "tail": "wrangler tail --format=pretty",
     "updateai": "npm update @cloudflare/ai --save-dev"
   },
-	"imports": {
-		"#src/*.mjs": "./src/*.mjs",
-		"#src/*.js": "./src/*.js",
-		"#main": "./src/main.mjs",
-		"#res": "./src/res.mjs"
-	},
+  "imports": {
+    "#src/*.mjs": "./src/*.mjs",
+    "#src/*.js": "./src/*.js",
+    "#main": "./src/main.mjs",
+    "#res": "./src/res.mjs"
+  },
   "devDependencies": {
+		"wrangler": "^3.19.0",
+		"mocha": "^10.2.0",
+		"sinon": "^17.0.1",
     "chai": "^4.3.10",
-    "mocha": "^10.2.0",
-    "sinon": "^17.0.1",
-    "wrangler": "^3.19.0"
+		"chai-as-promised": "^7.1.1"
   },
   "dependencies": {
     "@cloudflare/ai": "^1.0.38",
