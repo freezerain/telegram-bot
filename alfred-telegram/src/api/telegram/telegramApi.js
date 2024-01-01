@@ -1,5 +1,5 @@
 import { FetchApi, log, loge, buildError } from '../../main.mjs';
-import * as endpoints from './endpoints/index.mjs';
+import endpoints from './endpoints/index.mjs';
 import FetchBuilder from './fetchBuilder.js';
 
 //docs: https://core.telegram.org/bots/api#making-requests

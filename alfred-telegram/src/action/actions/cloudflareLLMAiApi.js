@@ -1,4 +1,4 @@
-import {Ai} from '@cloudflare/ai';
+//import {Ai} from '@cloudflare/ai';
 import {chunkString, log, loge, TelegramApi, buildError} from '../../main.mjs';
 import {prompts} from '../../res.mjs';
 

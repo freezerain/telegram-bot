@@ -1,13 +1,14 @@
 import {keywords, strings} from '../res.mjs';
 import {TelegramApi} from '../main.mjs';
-import chuckNorrisApi from './actions/chuckNorrisApi.js';
-import goodBoyApi from './actions/goodBoyApi.js';
-import diceThrow from './actions/diceThrow.js';
-import openAiApi from './actions/openAiApi.js';
+import ChuckNorrisApi from './actions/chuckNorrisApi.js';
+import GoodBoyApi from './actions/goodBoyApi.js';
+import DiceThrow from './actions/diceThrow.js';
+import OpenAiChatApi from './actions/openAiChatApi.js';
 import cloudflareLLMAiApi from './actions/cloudflareLLMAiApi.js';
 import cloudflareSDAiApi from './actions/cloudflareSDAiApi.js';
-import giphyApi from './actions/giphyApi.js';
-import epicGamesApi from './actions/epicGamesApi.js';
+import GiphyApi from './actions/giphyApi.js';
+import EpicGamesApi from './actions/epicGamesApi.js';
+import Poll from './actions/poll.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
@@ -23,7 +24,7 @@ const actionMap = {
 
 	ai: {
 		keywords: keywords.ai,
-		action: (metadata) => openAiApi(metadata)
+		action: (metadata) => new OpenAiChatApi().call(metadata)
 	},
 
 	cloudflareLLMAiApi: {
@@ -33,12 +34,12 @@ const actionMap = {
 
 	openAiApi: {
 		keywords: keywords.openAiApi,
-		action: (metadata) => openAiApi(metadata)
+		action: (metadata) => new OpenAiChatApi().call(metadata)
 	},
 
 	openAiApiGPT4: {
 		keywords: keywords.openAiApiGPT4,
-		action: (metadata) => openAiApi(metadata, true)
+		action: (metadata) => new OpenAiChatApi().call(metadata, {isGpt4: true})
 	},
 
 	cloudflareSDAiApi: {
@@ -48,29 +49,32 @@ const actionMap = {
 
 	goodBoyApi: {
 		keywords: keywords.goodBoyApi,
-		action: (metadata) => goodBoyApi(metadata)
+		action: (metadata) => new GoodBoyApi().call(metadata)
 	},
 
 	poll: {
 		keywords: keywords.poll,
-		action: (metadata) => {
-			throw new Error('actionMap not implemented');
-		}
+		action: (metadata) => new Poll().call(metadata)
 	},
 
 	giphyApi: {
 		keywords: keywords.giphyApi,
-		action: (metadata) => giphyApi(metadata)
+		action: (metadata) => new GiphyApi().call(metadata)
 	},
 
 	epicGamesApi: {
 		keywords: keywords.epicGamesApi,
-		action: (metadata) => epicGamesApi(metadata)
+		action: (metadata) => new EpicGamesApi().call(metadata)
 	},
 
 	chuckNorrisApi: {
 		keywords: keywords.chuckNorrisApi,
-		action: (metadata) => chuckNorrisApi(metadata)
+		action: (metadata) => new ChuckNorrisApi().call(metadata)
+	},
+
+	diceThrow: {
+		keywords: keywords.diceThrow,
+		action: (metadata) => new DiceThrow().call(metadata)
 	},
 
 	testTelegramApiSendAction: {
@@ -79,13 +83,7 @@ const actionMap = {
 			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
 				.sendChatAction({chat_id: metadata.chat_id});
 		}
-	},
-
-	diceThrow: {
-		keywords: keywords.diceThrow,
-		action: (metadata) => diceThrow(metadata)
 	}
-
 };
 
 export const fallbackAction = (metadata) => {

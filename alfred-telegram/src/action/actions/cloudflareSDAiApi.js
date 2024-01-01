@@ -1,4 +1,4 @@
-import {Ai} from '@cloudflare/ai';
+//import {Ai} from '@cloudflare/ai';
 import {log, loge, TelegramApi, buildError} from '../../main.mjs';
 
 // TODO Cloudflare timeout, maybe bug on their side
