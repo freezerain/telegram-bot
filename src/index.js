@@ -1,4 +1,4 @@
-import {log, loge, cloudflareEventRequestHandler} from './main.mjs';
+import { log, cloudflareEventRequestHandler, cloudflareScheduledHandler } from '#main';
 
 const TAG = 'index.js';
 
@@ -13,6 +13,7 @@ export default {
 	},
 //https://developers.cloudflare.com/workers/runtime-apis/handlers/scheduled/
 	scheduled: async (event, env, ctx) => {
-		ctx.waitUntil(doSomeTaskOnASchedule());
-	},
+		log(TAG, 'worker scheduled event received', event);
+		return cloudflareScheduledHandler(event, env);
+	}
 };

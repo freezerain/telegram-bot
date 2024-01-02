@@ -1,20 +1,17 @@
-import {log, loge, telegramRouter, TelegramApi} from '#main';
+import { log, TelegramApi, loge, scheduledRouter } from '#main';
 
-const TAG = 'cloudflareEventRequestHandler';
+const TAG = 'cloudflareScheduledHandler';
 const IS_REPORTING_EXCEPTIONS = false
-export default async function handleRequest(request, env) {
-	log(TAG, 'handling event request', request);
+export default async function handle(event, env) {
+	log(TAG, 'handling scheduled request', event);
 
-	if (request.method !== 'POST') {
-		loge(TAG, 'request method should be POST', request?.method);
-		return new Response('request method should be POST, method: ' + request?.method);
-	}
-
-	log(TAG, 'forwarding request to router');
-
-	return request.json()
-		.then((json) => telegramRouter(json, env))
-		.then(()=> new Response('OK'))
+	return new Promise((resolve, reject) => {
+		resolve( {
+			cron: event.cron,
+			scheduledTime: event.scheduledTime, //new Date(event.scheduledTime).
+			env: env
+		})
+	}).then((metadata) => scheduledRouter(metadata))
 		.catch(e => {
 			loge(TAG, 'error routing event request', e.message, e.stack);
 			// TODO Add custom exceptions

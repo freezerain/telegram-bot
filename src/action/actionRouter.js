@@ -1,4 +1,4 @@
-import { log, loge } from '../main.mjs';
+import { log, loge } from '#main';
 import actionMap, { fallbackAction } from './actionMap.js';
 
 const TAG = 'actionRouter';

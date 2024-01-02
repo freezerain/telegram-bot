@@ -6,10 +6,12 @@ import FetchApi from './api/fetchApi.js';
 import TelegramApi from './api/telegram/telegramApi.js';
 import getAction from './action/actionRouter.js';
 import telegramRouter from './data/telegram/telegramRouter.js';
+import scheduledRouter from './action/scheduledRouter.js';
 import telegramMessageHandler from './data/telegram/telegramMessageHandler.js';
 import cloudflareEventRequestHandler from './data/cloudflareEventRequestHandler.js'
+import cloudflareScheduledHandler from './data/cloudflareScheduledHandler.js'
 
 export { log, loge, chunkString, parseTimePassed };
 export { FetchApi, TelegramApi };
-export { telegramRouter, telegramMessageHandler, getAction };
-export { cloudflareEventRequestHandler };
+export { telegramRouter, telegramMessageHandler, getAction, scheduledRouter };
+export { cloudflareEventRequestHandler, cloudflareScheduledHandler };

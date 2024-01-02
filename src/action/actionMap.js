@@ -12,7 +12,7 @@ import Poll from './actions/poll.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
-const actionMap = {
+export default {
 
 	greetings: {
 		keywords: keywords.greetings,
@@ -92,5 +92,3 @@ export const fallbackAction = (metadata) => {
 		resolve(FALLBACK_MESSAGE)
 	})
 };
-
-export default actionMap;
