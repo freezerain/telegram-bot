@@ -20,7 +20,7 @@ export default class GiphyApi {
 
 	call(metadata) {
 		log(TAG, 'api request');
-		const randomTag = metadata.msg ?? this.getRandomTag();
+		let randomTag = metadata?.msg !== '' ? metadata.msg : this.getRandomTag();
 		log(TAG, 'random tag selected', randomTag);
 		const endpoint = `random?api_key=${metadata.env.GIPHY_API_KEY}&tag=${randomTag.replaceAll(' ', '%20')}&rating=${this.rating}`;
 		const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
@@ -36,7 +36,7 @@ export default class GiphyApi {
 			.then(url => {
 				return repo.sendAnimation({
 					chat_id: metadata.chat_id,
-					animation: url, caption: `${TELEGRAM_CAPTION}${randomTag}`, reply_to_message_id: metadata.message_id
+					animation: url, caption: `${TELEGRAM_CAPTION} ${randomTag}`, reply_to_message_id: metadata?.message_id
 				});
 			})
 			.then(resp => {
