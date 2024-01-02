@@ -12,6 +12,8 @@ const AI_MODEL = '@cf/meta/llama-2-7b-chat-fp16';
 const AI_ROLE = prompts.mainSystem;
 const CHAT_ACTION = 'typing';
 
+//TODO Disabled until cloudflare bundle module correctly
+// and make gateway working
 export default function call(metadata) {
 	log(TAG, 'api request');
 	if (!metadata.msg) {

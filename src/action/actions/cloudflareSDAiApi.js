@@ -9,6 +9,9 @@ const AI_MODEL = '@cf/stabilityai/stable-diffusion-xl-base-1.0';
 const AI_STEPS = 20
 const CHAT_ACTION = 'upload_photo';
 
+//TODO Disabled until cloudflare bundle module correctly
+// and make gateway working
+// and fix timeout problem
 export default function call(metadata) {
 	log(TAG, 'api request');
 	if (!metadata.msg) {
