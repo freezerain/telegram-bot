@@ -1,4 +1,4 @@
-import {log, loge, buildError } from '../../main.mjs';
+import {log, loge } from '#main';
 
 const TAG = 'fetchBuilder';
 const DEFAULT_METHOD = 'POST';
@@ -20,7 +20,7 @@ export default class FetchBuilder {
 		};
 		return this.api.fetchData(endpoint, options)
 			.catch(e => {
-				throw buildError(TAG, e, `Fetch telegram ${endpoint} failed`);
+				throw new Error(`Fetch telegram ${endpoint} failed`, { cause: e });
 			});
 	}
 

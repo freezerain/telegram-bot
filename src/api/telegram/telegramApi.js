@@ -1,4 +1,4 @@
-import { FetchApi, log, loge, buildError } from '../../main.mjs';
+import { FetchApi, log, loge } from '#main';
 import endpoints from './endpoints/index.mjs';
 import FetchBuilder from './fetchBuilder.js';
 

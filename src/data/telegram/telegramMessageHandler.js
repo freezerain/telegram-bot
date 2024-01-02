@@ -1,4 +1,4 @@
-import {log, loge, getAction, buildError} from '../../main.mjs';
+import {log, loge, getAction} from '#main';
 
 const TAG = 'telegramMessageHandler';
 const BOT_ACCOUNT_NAME = '@ratalfred_bot';
@@ -37,6 +37,6 @@ export default function handle(update, env) {
 	if (action) {
 		return action(metadata);
 	} else {
-		throw buildError(TAG, new Error(`action not found: ${metadata.keyword}`));
+		throw new Error(`action not found: ${metadata.keyword}`);
 	}
 }

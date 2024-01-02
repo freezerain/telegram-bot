@@ -1,5 +1,5 @@
 //import {Ai} from '@cloudflare/ai';
-import {chunkString, log, loge, TelegramApi, buildError} from '../../main.mjs';
+import {chunkString, log, loge, TelegramApi} from '#main';
 import {prompts} from '../../res.mjs';
 
 // 	available models:
@@ -15,7 +15,7 @@ const CHAT_ACTION = 'typing';
 export default function call(metadata) {
 	log(TAG, 'api request');
 	if (!metadata.msg) {
-		throw buildError(TAG, new Error(`user prompt is empty msg: ${metadata.msg}`));
+		throw new Error(`user prompt is empty msg: ${metadata.msg}`);
 	}
 	const ai = new Ai(metadata.env.AI);
 	const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
@@ -46,6 +46,6 @@ export default function call(metadata) {
 		}).then(resp => {
 			log(TAG, 'api success', resp);
 		}).catch(e => {
-			throw buildError(TAG, e)
+			throw new Error('api fail', { cause: e });
 		});
 }

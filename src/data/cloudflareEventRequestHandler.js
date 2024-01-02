@@ -1,4 +1,4 @@
-import {log, loge, telegramRouter, TelegramApi, buildError} from '../main.mjs';
+import {log, loge, telegramRouter, TelegramApi} from '#main';
 
 const TAG = 'cloudflareEventRequestHandler';
 
