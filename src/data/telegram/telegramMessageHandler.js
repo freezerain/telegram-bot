@@ -4,7 +4,8 @@ const TAG = 'telegramMessageHandler';
 const BOT_ACCOUNT_NAME = '@ratalfred_bot';
 
 export default function handle(update, env) {
-	let text = update.message.text.trim();
+	let text = update.message.text?.trim();
+	if(!text) throw new Error(`text not found: ${update.message?.text}`);
 	//If first word is slash or botName -> remove it
 	text = (text.toLowerCase().startsWith(BOT_ACCOUNT_NAME.toLowerCase())) ? text.substring(14).trim() : text;
 	text = (text.charAt(0) === '/') ? text.substring(1) : text;
