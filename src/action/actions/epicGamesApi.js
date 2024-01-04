@@ -1,4 +1,4 @@
-import { log, FetchApi, TelegramApi } from '#main';
+import { log, FetchApi, TelegramApi, DBRepo } from '#main';
 
 const TAG = 'epicGamesApi';
 const EPIC_GAMES_BASE_URL = 'https://store-site-backend-static.ak.epicgames.com';
@@ -21,11 +21,34 @@ export default class EpicGamesApi {
 				return new FetchApi(EPIC_GAMES_BASE_URL).fetchData(EPIC_GAMES_ENDPOINT);
 			})
 			.then(resp => {
-				log(TAG, `api response`, resp);
+				log(TAG, `api response`);
 				return resp;
 			})
 			.then(resp => {
-				return this.forwardToTelegram(this.buildGameArr(resp), repo, metadata);
+				const games = this.buildGameArr(resp);
+				const dbRepo = new DBRepo(metadata.env.DB);
+				log(TAG, 'start fetching db');
+				return dbRepo.getLastGames(metadata.chat_id)
+					.then(lastGames => {
+						log(TAG, 'last games', lastGames);
+						if (!lastGames || lastGames.length === 0) {
+							return games;
+						}
+						const newGames = games.filter(game => !lastGames.some(lastGame => lastGame.id === game.id));
+						log(TAG, 'new games', newGames);
+						return newGames;
+					}).then(newGames => {
+						log(TAG, 'updating DB with new games');
+						return dbRepo.addLastGames(metadata.chat_id, newGames)
+							.then(() => {
+								return newGames;
+							});
+					}).catch(e => {
+						throw new Error('db fail', { cause: e });
+					});
+			})
+			.then(games => {
+				return this.forwardToTelegram(games, repo, metadata);
 			})
 			.then(resp => {
 				log(TAG, 'api success');
@@ -41,6 +64,7 @@ export default class EpicGamesApi {
 		// In cases where more than 10 free games found
 		// split into batches
 		log(TAG, 'forwarding to telegram');
+		log(TAG, 'gameArr', gameArr);
 		const batchSize = MAX_TELEGRAM_GROUP_SIZE;
 		const promises = [];
 		for (let i = 0; i < gameArr.length; i += batchSize) {
@@ -94,31 +118,20 @@ export default class EpicGamesApi {
 		for (const item of json.data.Catalog.searchStore.elements) {
 			//check if promotion is present AND its 100% free
 			if (item.price.totalPrice.discountPrice !== 0 ||
-				item.promotions.promotionalOffers.length === 0 || !this.isNewGame(item.id)) {
+				item.promotions.promotionalOffers.length === 0) {
 				continue;
 			}
 			const game = {
 				title: item.title,
-				currentPrice: item.price.totalPrice.discountPrice,
-				originalPrice: item.price.totalPrice.originalPrice,
-				currency: item.price.totalPrice.currencyCode,
 				thumbnail: (item.keyImages.find(i => i.type === 'Thumbnail') ?? item.keyImages[0]).url,
 				id: item.id,
-				description: item.description,
-				offerType: item.offerType,
-				game: item,
 				url: this.buildGoogleSearchURL(item.title)
 			};
 			gamesArr.push(game);
 		}
 		log(TAG, `free epic games array built: ${gamesArr.length}`,
-			`skipped: ${gamesArr.length - json.data.Catalog.searchStore.paging.total}`,
-			`games: ${gamesArr}`);
+			`skipped: ${json.data.Catalog.searchStore.paging.total - gamesArr.length}`,
+			`games: `, gamesArr);
 		return gamesArr;
-	}
-
-//TODO Check in cloud if game is new
-	isNewGame(gameId) {
-		return true;
 	}
 }
