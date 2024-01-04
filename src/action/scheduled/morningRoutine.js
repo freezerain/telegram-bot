@@ -1,7 +1,7 @@
 import { TelegramApi } from '#main';
 import GiphyApi from '#src/action/actions/giphyApi.js';
 
-const subs = [592463179]
+const subs = [-592463179, 592463179]
 
 export default function get(metadata) {
 	console.log('entering mourning routine')

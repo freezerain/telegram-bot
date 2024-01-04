@@ -1,6 +1,8 @@
 import { crons, strings } from '#res';
 import { TelegramApi } from '#main';
 import morningRoutine from './scheduled/morningRoutine.js';
+import noonRoutine from './scheduled/noonRoutine.js';
+import eveningRoutine from './scheduled/eveningRoutine.js';
 export default {
 
 	minute: {
@@ -20,14 +22,14 @@ export default {
 	noon: {
 		cron: crons.everyNoon,
 		action: (metadata) => {
-			return morningRoutine(metadata)
+			return noonRoutine(metadata)
 		}
 	},
 
 	evening: {
 		cron: crons.everyEvening,
 		action: (metadata) => {
-			return morningRoutine(metadata)
+			return eveningRoutine(metadata)
 		}
 	}
 };
