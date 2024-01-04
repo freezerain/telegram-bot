@@ -8,12 +8,12 @@ export default async function handle(event, env) {
 	return new Promise((resolve, reject) => {
 		resolve( {
 			cron: event.cron,
-			scheduledTime: event.scheduledTime, //new Date(event.scheduledTime).
+			//scheduledTime: event.scheduledTime, //new Date(event.scheduledTime).
 			env: env
 		})
 	}).then((metadata) => scheduledRouter(metadata))
 		.catch(e => {
-			loge(TAG, 'error routing event request', e.message, e.stack);
+			loge(TAG, 'error routing event request', e.message, e.stack, e.cause?.message, e.cause?.stack);
 			// TODO Add custom exceptions
 			//and filter them here
 			return exceptionReport(e.message, env);

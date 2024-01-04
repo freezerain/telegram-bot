@@ -9,6 +9,7 @@ import cloudflareSDAiApi from './actions/cloudflareSDAiApi.js';
 import GiphyApi from './actions/giphyApi.js';
 import EpicGamesApi from './actions/epicGamesApi.js';
 import Poll from './actions/poll.js';
+import testAction from './actions/testAction.js';
 
 
 const FALLBACK_MESSAGE = 'Keyword not found!';
@@ -77,11 +78,10 @@ export default {
 		action: (metadata) => new DiceThrow().call(metadata)
 	},
 
-	testTelegramApiSendAction: {
-		keywords: keywords.testTelegramApiSendAction,
+	test: {
+		keywords: keywords.test,
 		action: (metadata) => {
-			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
-				.sendChatAction({chat_id: metadata.chat_id});
+			return testAction(metadata)
 		}
 	}
 };

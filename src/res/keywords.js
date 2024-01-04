@@ -16,4 +16,4 @@ export const poll = ['poll', 'опрос'];
 export const epicGamesApi = ['epic', 'эпик', 'епик', 'игры', 'games'];
 
 // test actions
-export const testTelegramApiSendAction = ['testaction'];
+export const test = ['test'];
