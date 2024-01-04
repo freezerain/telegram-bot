@@ -14,15 +14,12 @@ export default async function handleRequest(request, env) {
 
 	return request.json()
 		.then((json) => telegramRouter(json, env))
-		.then(()=> new Response('OK'))
 		.catch(e => {
 			loge(TAG, 'error routing event request', e.message, e.stack);
 			// TODO Add custom exceptions
 			//and filter them here
 			return exceptionReport(e.message, env);
-		}).finally(() => {
-			return new Response('OK');
-		});
+		}).then(()=> new Response('OK'))
 }
 
 // secret: DEV_CHAT_ID
