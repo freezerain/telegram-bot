@@ -10,8 +10,10 @@ import scheduledRouter from './action/scheduledRouter.js';
 import telegramMessageHandler from './data/telegram/telegramMessageHandler.js';
 import cloudflareEventRequestHandler from './data/cloudflareEventRequestHandler.js'
 import cloudflareScheduledHandler from './data/cloudflareScheduledHandler.js'
+import DBRepo from './db/dbRepo.js'
+
 
 export { log, loge, chunkString, parseTimePassed };
-export { FetchApi, TelegramApi };
+export { FetchApi, TelegramApi, DBRepo };
 export { telegramRouter, telegramMessageHandler, getAction, scheduledRouter };
 export { cloudflareEventRequestHandler, cloudflareScheduledHandler };

@@ -3,7 +3,8 @@ import { log, cloudflareEventRequestHandler, cloudflareScheduledHandler } from '
 const TAG = 'index.js';
 
 const Env = {
-	AI: null
+	AI: null,
+	DB: null
 };
 
 export default {
