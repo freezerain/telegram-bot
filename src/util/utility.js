@@ -1,4 +1,4 @@
-import {log, loge} from '../main.mjs';
+import { log, loge } from '../main.mjs';
 
 const TAG = 'utility';
 const DEFAULT_CHUNK_SIZE = 3072;

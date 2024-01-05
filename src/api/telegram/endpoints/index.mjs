@@ -26,4 +26,4 @@ export default {
 	sendVideo,
 	sendVoice,
 	forwardMessage
-}
+};

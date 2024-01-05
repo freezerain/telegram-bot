@@ -1,6 +1,6 @@
 //import {Ai} from '@cloudflare/ai';
-import {chunkString, log, loge, TelegramApi} from '#main';
-import {prompts} from '../../res.mjs';
+import { chunkString, log, loge, TelegramApi } from '#main';
+import { prompts } from '../../res.mjs';
 
 // 	available models:
 //	@cf/mistral/mistral-7b-instruct-v0.1
@@ -15,19 +15,20 @@ const CHAT_ACTION = 'typing';
 //TODO Disabled until cloudflare bundle module correctly
 // and make gateway working
 export default function call(metadata) {
+	return
 	log(TAG, 'api request');
 	if (!metadata.msg) {
 		throw new Error(`user prompt is empty msg: ${metadata.msg}`);
 	}
 	const ai = new Ai(metadata.env.AI);
 	const repo = new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN);
-	return repo.sendChatAction({chat_id: metadata.chat_id, action: CHAT_ACTION})
+	return repo.sendChatAction({ chat_id: metadata.chat_id, action: CHAT_ACTION })
 		.then(() => {
 			log(TAG, 'ai request', AI_MODEL, AI_ROLE, metadata.msg);
 			return ai.run(AI_MODEL, {
 				messages: [
-					{role: 'system', content: AI_ROLE},
-					{role: 'user', content: metadata.msg}
+					{ role: 'system', content: AI_ROLE },
+					{ role: 'user', content: metadata.msg }
 				]
 			});
 		}).then(resp => {
@@ -42,9 +43,9 @@ export default function call(metadata) {
 					return repo.sendMessage({
 						chat_id: metadata.chat_id, text: chunk,
 						reply_to_message_id: metadata.message_id
-					})
-				})
-			}, Promise.resolve())
+					});
+				});
+			}, Promise.resolve());
 		}).then(resp => {
 			log(TAG, 'api success', resp);
 		}).catch(e => {

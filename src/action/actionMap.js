@@ -1,5 +1,5 @@
-import {keywords, strings} from '../res.mjs';
-import {TelegramApi} from '../main.mjs';
+import { keywords, strings } from '../res.mjs';
+import { TelegramApi } from '../main.mjs';
 import ChuckNorrisApi from './actions/chuckNorrisApi.js';
 import GoodBoyApi from './actions/goodBoyApi.js';
 import DiceThrow from './actions/diceThrow.js';
@@ -19,7 +19,7 @@ export default {
 		keywords: keywords.greetings,
 		action: (metadata) => {
 			return new TelegramApi(metadata.env.TELEGRAM_BOT_TOKEN)
-				.sendMessage({chat_id: metadata.chat_id, text: strings.helloMsg, reply_to_message_id: metadata.message_id});
+				.sendMessage({ chat_id: metadata.chat_id, text: strings.helloMsg, reply_to_message_id: metadata.message_id });
 		}
 	},
 
@@ -40,7 +40,7 @@ export default {
 
 	openAiApiGPT4: {
 		keywords: keywords.openAiApiGPT4,
-		action: (metadata) => new OpenAiChatApi().call(metadata, {isGpt4: true})
+		action: (metadata) => new OpenAiChatApi().call(metadata, { isGpt4: true })
 	},
 
 	cloudflareSDAiApi: {
@@ -81,7 +81,7 @@ export default {
 	test: {
 		keywords: keywords.test,
 		action: (metadata) => {
-			return testAction(metadata)
+			return testAction(metadata);
 		}
 	}
 };
@@ -89,6 +89,6 @@ export default {
 export const fallbackAction = (metadata) => {
 	return new Promise((resolve, reject) => {
 		console.log(FALLBACK_MESSAGE);
-		resolve(FALLBACK_MESSAGE)
-	})
+		resolve(FALLBACK_MESSAGE);
+	});
 };

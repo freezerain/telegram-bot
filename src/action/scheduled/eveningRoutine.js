@@ -1,8 +1,9 @@
 import { TelegramApi } from '#main';
 import EpicGamesApi from '#src/action/actions/epicGamesApi.js';
+import {subscribers} from '#res'
 
-const subs = [-592463179]
-
+// add here all chat ids where you want to receive this routine
+const subs = subscribers.eveningSubs
 export default function get(metadata) {
 	console.log('entering evening routine')
 
@@ -12,5 +13,4 @@ export default function get(metadata) {
 	})
 
 	return Promise.all(subs.map(chatId => epicPromise(chatId)))
-		//.then(r => epicPromise(metadata.env.DEV_CHAT_ID))
 }

@@ -13,6 +13,7 @@ const CHAT_ACTION = 'upload_photo';
 // and make gateway working
 // and fix timeout problem
 export default function call(metadata) {
+	return
 	log(TAG, 'api request');
 	if (!metadata.msg) {
 		throw new Error(`user prompt is empty msg: ${metadata.msg}`)

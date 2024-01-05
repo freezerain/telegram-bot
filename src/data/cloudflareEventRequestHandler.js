@@ -1,7 +1,8 @@
-import {log, loge, telegramRouter, TelegramApi} from '#main';
+import { log, loge, telegramRouter, TelegramApi } from '#main';
+import { config } from '#res';
 
 const TAG = 'cloudflareEventRequestHandler';
-const IS_REPORTING_EXCEPTIONS = false
+const IS_REPORTING_EXCEPTIONS = config.isReportExceptionToDevChat;
 export default async function handleRequest(request, env) {
 	log(TAG, 'handling event request', request);
 
@@ -19,17 +20,17 @@ export default async function handleRequest(request, env) {
 			// TODO Add custom exceptions
 			//and filter them here
 			return exceptionReport(e.message, env);
-		}).then(()=> new Response('OK'))
+		}).then(() => new Response('OK'));
 }
 
 // secret: DEV_CHAT_ID
 function exceptionReport(msg, env) {
-	if(!IS_REPORTING_EXCEPTIONS) {
+	if (!IS_REPORTING_EXCEPTIONS) {
 		return;
 	}
 	const tgApi = new TelegramApi(env.TELEGRAM_BOT_TOKEN);
 	const chat_id = env.DEV_CHAT_ID;
-	return tgApi.sendMessage({chat_id: chat_id, text: msg})
+	return tgApi.sendMessage({ chat_id: chat_id, text: msg })
 		.then(resp => loge(TAG, 'exception callback sent'))
 		.catch(e => loge(TAG, 'error reporting exception to dev chat'));
 }

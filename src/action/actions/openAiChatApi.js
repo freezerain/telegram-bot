@@ -2,17 +2,17 @@ import OpenAI from 'openai';
 
 import { chunkString, log, TelegramApi } from '#main';
 import { prompts } from '#res';
-
+import { config } from '#res';
 // To use function as like in tutorial
 //https://developers.cloudflare.com/workers/tutorials/openai-function-calls-workers/
 
 const TAG = 'openAiApi';
-const CHAT_GPT_3_5_MODEL = 'gpt-3.5-turbo-1106';
-const CHAT_GPT4_MODEL = 'gpt-4-1106-preview';
+const CHAT_GPT_3_5_MODEL = config.chatGptModel;
+const CHAT_GPT4_MODEL = config.chatGptAdvancedModel;
 const DEFAULT_AI_MODEL = CHAT_GPT_3_5_MODEL;
 const DEFAULT_AI_ROLE = prompts.mainSystem;
 const CHAT_ACTION = 'typing';
-const AI_GATEWAY = 'https://gateway.ai.cloudflare.com/v1/d070db37359748344dff58e984f42d5a/open-ai/openai';
+const AI_GATEWAY = config.aiGateway;
 
 export default class OpenAiChatApi {
 

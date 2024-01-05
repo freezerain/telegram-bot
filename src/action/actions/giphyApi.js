@@ -36,7 +36,9 @@ export default class GiphyApi {
 			.then(url => {
 				return repo.sendAnimation({
 					chat_id: metadata.chat_id,
-					animation: url, caption: `${TELEGRAM_CAPTION} ${randomTag}`, reply_to_message_id: metadata?.message_id
+					animation: url,
+					caption: `${TELEGRAM_CAPTION} ${randomTag}`,
+					reply_to_message_id: metadata?.message_id
 				});
 			})
 			.then(resp => {

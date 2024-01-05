@@ -1,18 +1,18 @@
 # https://developers.cloudflare.com/workers/wrangler/configuration/#source-of-truth
 # This file should be Source Of Truth for wrangler configuration
 # changes from the dashboard should be avoided if possible
-name = "alfred-telegram"
+name = "YOU WOKER NAME" # i.e. name of your Worker
 main = "src/index.js"
-compatibility_date = "2023-12-15"
-minify = false
+compatibility_date = "2024-01-04" # bump this to current date for new cloudflare updates
+minify = true
 
 [ai]
-binding = "AI" # i.e. available in your Worker on env.AI
+binding = "AI" # i.e. available in your Worker on env.AI, used only for cloudflare AI
 
 [[d1_databases]]
 binding = "DB" # available in your Worker on env.db
-database_name = "alfred-db"
-database_id = "f0060d8d-a443-4550-b751-65c3c40ca646"
+database_name = "YOUR DB NAME" # i.e. name of the database
+database_id = "YOUR DB ID" # i.e. id of the database you can find it in the D1 Console
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

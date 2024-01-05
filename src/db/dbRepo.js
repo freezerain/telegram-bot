@@ -1,3 +1,5 @@
+import { config } from '#res';
+
 export default class DBRepo {
 	constructor(DB) {
 		this.db = DB;
@@ -5,11 +7,11 @@ export default class DBRepo {
 
 	getLastGames(chatId) {
 		return this.db
-			.prepare('SELECT * FROM epicgames WHERE chatid = ?1 ORDER BY id DESC LIMIT 1;')
-			.bind(chatId)
+			.prepare('SELECT * FROM ?1 WHERE chatid = ?2 ORDER BY id DESC LIMIT 1;')
+			.bind(config.epicTableName, chatId)
 			.first('games')
 			.then(resp => {
-				return JSON.parse(resp) ?? []
+				return JSON.parse(resp) ?? [];
 			})
 			.catch(e => {
 				throw new Error('db fail', { cause: e });
@@ -19,8 +21,8 @@ export default class DBRepo {
 	addLastGames(chatId, games) {
 		if (games.length < 1) return;
 		return this.db
-			.prepare('INSERT INTO epicgames (chatid, games) VALUES (?1, ?2)')
-			.bind(chatId, JSON.stringify(games))
+			.prepare('INSERT INTO ?1 (chatid, games) VALUES (?2, ?3)')
+			.bind(config.epicTableName, chatId, JSON.stringify(games))
 			.run()
 			.catch(e => {
 				throw new Error('db fail', { cause: e });

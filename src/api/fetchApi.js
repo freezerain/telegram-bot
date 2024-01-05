@@ -10,7 +10,7 @@ export default class FetchApi {
 				if (!resp.ok) {
 					return resp.text().then(text => {
 						throw new Error(`Response error, status: ${resp.status} - ${resp.statusText}. ${text}`);
-					})
+					});
 				}
 				return resp.json();
 			})

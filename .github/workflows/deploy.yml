@@ -20,8 +20,8 @@ jobs:
           secrets: |
             GIPHY_API_KEY
             TELEGRAM_BOT_TOKEN
-            GROUP_CHAT_ID
+            OPENAI_API_KEY
         env:
           GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+          GROUP_CHAT_ID: ${{ secrets.OPENAI_API_KEY }}

@@ -1,12 +1,12 @@
 {
-  "name": "alfred-telegram",
+  "name": "telegram-bot",
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
+		"start": "wrangler dev",
     "dev": "wrangler dev",
-    "start": "wrangler dev",
     "dev:remote": "wrangler dev --remote",
 		"dev:cron": "wrangler dev --test-scheduled",
 		"dev:local": "wrangler deploy --dry-run --outdir out",
@@ -25,8 +25,7 @@
 		"wrangler": "^3.19.0",
 		"mocha": "^10.2.0",
 		"sinon": "^17.0.1",
-    "chai": "^4.3.10",
-		"chai-as-promised": "^7.1.1"
+    "chai": "^4.3.10"
   },
   "dependencies": {
     "@cloudflare/ai": "^1.0.38",

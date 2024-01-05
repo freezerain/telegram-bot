@@ -1,11 +1,12 @@
 import { log, FetchApi, TelegramApi, DBRepo } from '#main';
+import {strings} from '#res'
 
 const TAG = 'epicGamesApi';
 const EPIC_GAMES_BASE_URL = 'https://store-site-backend-static.ak.epicgames.com';
 const EPIC_GAMES_ENDPOINT = 'freeGamesPromotions';
 const CHAT_ACTION = 'typing';
 const MAX_TELEGRAM_GROUP_SIZE = 10;
-const TELEGRAM_CAPTION = '🤑 Сегодня бесплатно в епик сторе: ';
+const TELEGRAM_CAPTION = strings.epicGamesMsg
 
 export default class EpicGamesApi {
 

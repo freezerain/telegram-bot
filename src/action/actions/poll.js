@@ -1,7 +1,8 @@
 import { log, loge, FetchApi, TelegramApi } from '#main';
+import { config } from '#res';
 
 const TAG = 'poll';
-const POLL_OPTIONS_REGEXP = /(\[.*?\])/;
+const POLL_OPTIONS_REGEXP = config.pollOptionsRegexp;
 const CHAT_ACTION = 'typing';
 
 export default class Poll {

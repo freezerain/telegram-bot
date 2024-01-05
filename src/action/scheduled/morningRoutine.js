@@ -1,7 +1,9 @@
 import { TelegramApi } from '#main';
 import GiphyApi from '#src/action/actions/giphyApi.js';
+import {subscribers} from '#res'
 
-const subs = [-592463179]
+// add here all chat ids where you want to receive this routine
+const subs = subscribers.morningSubs
 
 export default function get(metadata) {
 	console.log('entering mourning routine')
@@ -12,5 +14,4 @@ export default function get(metadata) {
 	})
 
 	return Promise.all(subs.map(chatId => giphyPromise(chatId)))
-		//.then((r) => giphyPromise(metadata.env.DEV_CHAT_ID))
 }

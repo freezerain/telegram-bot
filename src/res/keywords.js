@@ -1,19 +1,17 @@
 // keywords to be compared with first word of each message, recieved from telegram api
 // and mapped to coresponding action in actionMap.js
-export const greetings = ['привет', 'hello', 'ghbdtn', 'hi', 'прив'];
-export const ai = ['ab', 'ai', 'аи', 'фш'];
-export const openAiApi = ['гпт', 'gpt', 'чат', 'chatgpt', 'чатгпт', 'openai'];
-export const openAiApiGPT4 = ['ai4', 'аи4', 'гпт4', 'gpt4', 'чат4', 'chatgpt4', 'чатгпт4', 'openai4'];
-export const cloudflareLLMAiApi = ['llama', 'lama', 'лама'];
-export const cloudflareSDAiApi = ['sd', 'сд', 'pic', 'картинка', 'image', 'photo', 'фото'];
-export const goodBoyApi = ['dog', 'dogo', 'пёс', 'пес', 'собака', 'собачка', 'дог', 'дого'];
-export const chuckNorrisApi = ['chuck', 'chuck norris', 'чак', 'чак норрис'];
-export const diceThrow = ['dice', 'random', 'rand', 'кости'];
-export const giphyApi = ['morning', 'утро', 'доброе утро', 'gif', 'giphy', 'гиф'];
-
-// not implemented
-export const poll = ['poll', 'опрос'];
-export const epicGamesApi = ['epic', 'эпик', 'епик', 'игры', 'games'];
+export const greetings = ['hello', 'hi'];
+export const ai = ['ai'];
+export const openAiApi = ['gpt', 'chatgpt', 'openai'];
+export const openAiApiGPT4 = ['gpt4', 'chatgpt4', 'openai4']
+export const cloudflareLLMAiApi = ['llama', 'lama'];
+export const cloudflareSDAiApi = ['sd', 'pic', 'image', 'photo'];
+export const goodBoyApi = ['dog', 'dogo'];
+export const chuckNorrisApi = ['chuck', 'norris'];
+export const diceThrow = ['dice', 'random', 'rand'];
+export const giphyApi = ['morning', 'gif', 'giphy'];
+export const poll = ['poll'];
+export const epicGamesApi = ['epic', 'games'];
 
 // test actions
 export const test = ['test'];

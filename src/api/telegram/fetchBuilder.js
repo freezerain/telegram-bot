@@ -1,4 +1,4 @@
-import {log, loge } from '#main';
+import { log, loge } from '#main';
 
 const TAG = 'fetchBuilder';
 const DEFAULT_METHOD = 'POST';

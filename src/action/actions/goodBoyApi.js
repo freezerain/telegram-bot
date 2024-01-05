@@ -1,10 +1,11 @@
 import { log, FetchApi, TelegramApi } from '#main';
+import {strings} from '#res';
 
 const TAG = 'goodBoyApi';
 const GOOD_BOY_BASE_URL = 'https://dog.ceo/api';
 const GOOD_BOY_RANDOM_BREED_TAG = 'breeds/image';
 const GOOD_BOY_ENDPOINT = 'random';
-const GOOD_BOY_CAPTION = '🐶🐶🐶';
+const GOOD_BOY_CAPTION = strings.doggiesMsg;
 const CHAT_ACTION = 'upload_photo';
 
 export default class GoodBoyApi {

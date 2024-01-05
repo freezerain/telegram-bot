@@ -8,6 +8,7 @@ const ENDPOINT = 'jokes/random';
 export default class ChuckNorrisApi {
 	constructor() {
 	}
+
 	call(metadata) {
 		log(TAG, 'api request');
 		return new FetchApi(BASE_URL)
