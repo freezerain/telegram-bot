@@ -1,19 +1,19 @@
-# Alfred - Telegram Butler Bot
+# Alfred - Telegram Butler Bot 🤖
 
-This Free Telegram bot, powered by a Cloudflare Worker, is designed and automate tasks in group chat.
-Originally was created to send automated polls asking friend group if they ready to gaming tonight.
+This Free Telegram bot, powered by a Cloudflare Worker, is designed to automate tasks in group chat.
+Originally was created to daily poll 4 members of the party if they ready to go in the adventure.
 
-## Demo:
+## Demo 🚀
 
 **Ask chatGpt directly from telegram**
 
 ![Demo GIF](../assets/anim1.webp)
 
-**Dog on demand as service**
+**Dog on demand as service 🐕**
 
 ![Demo GIF](../assets/anim2.webp)
 
-**Random gif**
+**Random gif 😻**
 
 ![Demo GIF](../assets/anim3.webp)
 
@@ -21,21 +21,22 @@ Originally was created to send automated polls asking friend group if they ready
 
 ![Demo GIF](../assets/anim4.webp)
 
-## What Can This Bot Do and what APIs supported:
+## What Can This Bot Do and what APIs supported 🛠️:
 
-- **OpenAI API: Ask ChatGPT 3.5 / 4**: this requires openAI token
-- **EpicGames API: Free Games Updates**: Get updates on free games from the Epic Games Store.
-- **Giphy API: Random GIF**: can search for specific tag
-- **DogCEO API: Random Dog Photo**
-- **Poll Creation**
-- **Dice Roll**
+- **OpenAI API**: Ask ChatGPT 3.5 / 4. This requires openAI token
+- **EpicGames API**: Get updates on free games from the Epic Games Store.
+- **Giphy API**: get random gif or specific tag
+- **DogCEO API**: get random Dog Photo
+- **Chuck Norris API**: joke about Chuck Norris
+- **Telegram API**: Poll Creation from message or code
+- **Telegram API**: Dice roll for random integer
 
 You can schedule these actions using Cloudflare's cron timer.
 The bot also uses Cloudflare's D1 serverless SQL database for data storage.
 
-## How to Set It Up
+## How to Set It Up ⚙️
 
-### 1. Telegram
+### 1. Telegram 📱
 
 Follow [Telegram Bot Tutorial](https://core.telegram.org/bots/tutorial) to:
 
@@ -46,7 +47,7 @@ Follow [Telegram Bot Tutorial](https://core.telegram.org/bots/tutorial) to:
 - Using `@BotFather` disable group privacy to let the bot see all messages.
 - Using `@BotFather` register keywords as commands for rendering in Telegram after "/".
 
-### 2. Cloudflare Dashboard
+### 2. Cloudflare Dashboard ☁️
 
 1. Create a worker.
 2. Set worker link as Telegram webhook.
@@ -58,7 +59,7 @@ Follow [Telegram Bot Tutorial](https://core.telegram.org/bots/tutorial) to:
 
 - Create new token and save it to GitHub secrets if you want to deploy using GitHub actions.
 
-### 3. Your Code
+### 3. Your Code 💻
 
 1. In `src/res/config.js`, set `aiGateway` and `epicTableName` that you get from cloudflare dashboard.
 2. In `wrangler.toml`, set worker `name`, D1 `database_name` and `database_id`.
@@ -71,7 +72,7 @@ Follow [Telegram Bot Tutorial](https://core.telegram.org/bots/tutorial) to:
 - **To add new APIs/Actions:**: Put new actions in `src/action/actions` and register them in `src/action/actionMap.js` or
 	`src/action/scheduledMap.js` for cron routines.
 
-### 4. Secrets
+### 4. Secrets 🔐
 
 Store secrets in the GitHub repo for deployment through GitHub Actions.
 They'll be pushed to the Cloudflare dashboard.
@@ -85,11 +86,12 @@ Alternatively, add secrets directly in the dashboard:
 - `GIPHY_API_KEY`: To search for GIFs.
 - `OPENAI_API_KEY`: To chat with ChatGPT.
 
-## Contribute
+## Contribute 🤝
 
 Feel free to use, change, and share this code as you like. No license attached.
+Pull requests are welcomed.
 
-## Heads Up
+## Heads Up ⚠️
 
 This project isn't officially associated with Cloudflare, Telegram, Epic Games, OpenAI, or Giphy.
 It's a standalone project, created for learning and fun, and comes as it is.
