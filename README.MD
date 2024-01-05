@@ -1,6 +1,6 @@
 # Alfred - Telegram Butler Bot 🤖
 
-This Free Telegram bot, powered by a Cloudflare Worker, is designed to automate tasks in group chat.
+Free serverless Telegram bot, powered by a Cloudflare Worker, is designed to automate tasks in group chat.
 Originally was created to daily poll 4 members of the party if they ready to go in the adventure.
 
 ## Demo 🚀
