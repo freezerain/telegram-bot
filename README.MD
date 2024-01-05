@@ -3,7 +3,13 @@
 This Free Telegram bot, powered by a Cloudflare Worker, is designed and automate tasks in group chat.
 Originally was created to send automated polls asking friend group if they ready to gaming tonight.
 
-![Demo GIF](demo.gif)
+![Demo GIF](../assets/anim1.webp)
+
+![Demo GIF](../assets/anim2.webp)
+
+![Demo GIF](../assets/anim3.webp)
+
+![Demo GIF](../assets/anim4.webp)
 
 ## What Can This Bot Do and what APIs supported:
 
